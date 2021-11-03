@@ -1,1 +1,1 @@
-# SAP Data Intelligence 기능 예제
+# SAP Data Intelligence 예제
