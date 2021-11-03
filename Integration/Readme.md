@@ -1,1 +1,1 @@
-# 다양한 시스템의 데이터 통합
+# Data Integration 예제
