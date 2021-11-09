@@ -3,7 +3,7 @@
 
 ## 1. Jupyter Operator 개발 환경
 
-<img src="images/jupyter_pipeline1.png" width="550" height="120"/>
+<img src="images/jupyter_pipeline1.png" width="550" height="130"/>
 
 <img src="images/jupyter_pipeline2.png" width="550" height="120"/>
 
