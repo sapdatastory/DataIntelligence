@@ -9,6 +9,6 @@ SAP Data Intelligence에서 제공하는 다양한 Operator와 Pipeline 예제�
 
 <br>
 
-- **[Jupyter Operator 예제](Processing#JupyterOperator)**
+- **[Jupyter Operator 예제](JupyterOperator/)**
     - [ABAP Custom Operator Example](Custom/ABAP)
     - [IQ(HDL) Custom Operator Example](Custom/IQ)
