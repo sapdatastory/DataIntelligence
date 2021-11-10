@@ -1,0 +1,152 @@
+{
+	"properties": {},
+	"icon": "industry",
+	"iconsrc": "",
+	"description": "Jupyter Operator Example3",
+	"processes": {
+		"jupyter1": {
+			"component": "com.sap.jupyter",
+			"metadata": {
+				"label": "Jupyter",
+				"x": 221.99999904632568,
+				"y": 40,
+				"height": 80,
+				"width": 120,
+				"ui": "dynpath",
+				"extensible": true,
+				"config": {
+					"notebookFilePath": "jupyter_exam3",
+					"productive": true,
+					"timeout": 5
+				},
+				"additionalinports": [
+					{
+						"name": "input1",
+						"type": "message"
+					}
+				],
+				"additionaloutports": [
+					{
+						"name": "output1",
+						"type": "message"
+					},
+					{
+						"name": "output2",
+						"type": "string"
+					}
+				]
+			}
+		},
+		"blankjsoperator1": {
+			"component": "com.sap.system.jsoperator",
+			"metadata": {
+				"label": "Blank JS Operator",
+				"x": 482.99999713897705,
+				"y": 32,
+				"height": 80,
+				"width": 120,
+				"extensible": true,
+				"generation": 1,
+				"config": {
+					"script": "$.setPortCallback(\"in\", writeEmail)\n\nfunction writeEmail(ctx, data) {\n    all_mapes = JSON.parse(data);\n    ts_count = Object.keys(all_mapes).length\n\n    var email_body = \"Hello,\\nThe new forecasts have been created.\\\n    \\n\\\n    \\nNumber of forecasts: \" + ts_count + \"\\\n    \\nForecast with the lowest MAPE: \" + (all_mapes[0].MAPE * 100).toFixed(1) + \"% - \" + all_mapes[0].SEGMENT +\"\\\n    \\nForecast with the highest MAPE: \" + (all_mapes[ts_count - 1].MAPE * 100).toFixed(1) + \"% - \" + all_mapes[ts_count -1].SEGMENT +\"\\\n    \\n\\\n    \\nAll the best,\\\n    \\nYour SAP Data Intelligence system\"\n    \n    email_content = {\"Attributes\" : {\"email.from\" : \"your@email.com\",\n                                    \"email.subject\": \"Forecast notification\"},\n                                    \"Body\": email_body  } \n    $.out(email_content);\n}"
+				},
+				"additionalinports": [
+					{
+						"name": "in",
+						"type": "string"
+					}
+				],
+				"additionaloutports": [
+					{
+						"name": "out",
+						"type": "message"
+					}
+				]
+			}
+		},
+		"wiretap1": {
+			"component": "com.sap.util.wiretap",
+			"metadata": {
+				"label": "Wiretap",
+				"x": 651.999997138977,
+				"y": 32,
+				"height": 80,
+				"width": 120,
+				"generation": 1,
+				"ui": "dynpath",
+				"config": {}
+			}
+		},
+		"constantgenerator1": {
+			"component": "com.sap.util.constantGenerator",
+			"metadata": {
+				"label": "Constant Generator",
+				"x": 17,
+				"y": 32,
+				"height": 80,
+				"width": 120,
+				"extensible": true,
+				"generation": 1,
+				"config": {}
+			}
+		}
+	},
+	"groups": [
+		{
+			"name": "group1",
+			"nodes": [
+				"jupyter1"
+			],
+			"metadata": {
+				"description": "Group"
+			},
+			"tags": {
+				"z_jupyter_sklearn": ""
+			}
+		}
+	],
+	"connections": [
+		{
+			"metadata": {
+				"points": "345.9999990463257,89 373.9999985694885,89 373.9999985694885,80 449.9999976158142,80 449.9999976158142,72 477.99999713897705,72"
+			},
+			"src": {
+				"port": "output2",
+				"process": "jupyter1"
+			},
+			"tgt": {
+				"port": "in",
+				"process": "blankjsoperator1"
+			}
+		},
+		{
+			"metadata": {
+				"points": "606.999997138977,72 646.999997138977,72"
+			},
+			"src": {
+				"port": "out",
+				"process": "blankjsoperator1"
+			},
+			"tgt": {
+				"port": "in",
+				"process": "wiretap1"
+			}
+		},
+		{
+			"metadata": {
+				"points": "141,72 168.99999952316284,72 168.99999952316284,80 216.99999904632568,80"
+			},
+			"src": {
+				"port": "out",
+				"process": "constantgenerator1"
+			},
+			"tgt": {
+				"port": "input1",
+				"process": "jupyter1"
+			}
+		}
+	],
+	"inports": {},
+	"outports": {},
+	"metadata": {}
+}
