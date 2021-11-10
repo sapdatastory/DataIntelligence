@@ -6,8 +6,8 @@ def on_input(data):
     import pandas as pd
     import io
     
-    conn = sqlanydb.connect(uid='USER1', pwd='Welcome1', 
-                            host='c1c62fe6-39d5-40e2-a5d9-de2074363752.iq.hdl.prod-ap12.hanacloud.ondemand.com:443', 
+    conn = sqlanydb.connect(uid='userid', pwd='userpw', 
+                            host='xxxxx.iq.hdl.prod-ap12.hanacloud.ondemand.com:443', 
                             ENC='TLS(tls_type=rsa;direct=yes)')
     cursor = conn.cursor()
     
