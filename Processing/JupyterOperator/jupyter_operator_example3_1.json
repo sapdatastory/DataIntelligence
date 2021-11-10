@@ -1,0 +1,196 @@
+{
+	"properties": {},
+	"icon": "industry",
+	"iconsrc": "",
+	"description": "Jupyter Operator Example3_1",
+	"processes": {
+		"structuredfileconsumer1": {
+			"component": "com.sap.storage.consumer.v2",
+			"metadata": {
+				"label": "Structured File Consumer",
+				"x": 17,
+				"y": 12,
+				"height": 80,
+				"width": 120,
+				"extensible": false,
+				"generation": 1,
+				"config": {
+					"service": "HDL_FILES",
+					"serviceConnection": {
+						"configurationType": "Configuration Manager",
+						"connectionID": "zHDLF"
+					},
+					"source": {
+						"remoteObjectReference": {
+							"connection": {
+								"id": "zHDLF",
+								"type": "HDL_FILES"
+							},
+							"name": "VEHICLECOUNT.csv",
+							"remoteObjectType": "FILE.CSV",
+							"qualifiedName": "/VEHICLECOUNT.csv",
+							"nativeQualifiedName": "/VEHICLECOUNT.csv",
+							"owner": "dokon",
+							"size": 31213,
+							"version": {
+								"dataLastModified": 1636516050000,
+								"metadataLastModified": 1636516050000,
+								"metadataVersionNumber": 1636516050000
+							}
+						},
+						"dataAccessConfiguration": {
+							"rowDelimiter": "\r\n",
+							"charset": "ISO-8859-2",
+							"textDelimiter": "\"",
+							"header": true,
+							"attributes": [
+								{
+									"name": "DATE",
+									"format": "yyyy-MM-dd"
+								}
+							],
+							"escapeCharacter": "\"",
+							"colDelimiter": ";"
+						},
+						"schema": {
+							"genericType": "TABLE",
+							"tableBasedRepresentation": {
+								"attributes": []
+							}
+						},
+						"capabilityProperties": [
+							{
+								"name": "isProfileable",
+								"value": "true"
+							}
+						]
+					},
+					"failOnStringTruncation": true
+				},
+				"outports": [
+					{
+						"name": "outTable",
+						"type": "table",
+						"vtype-ID": "$GRAPH.generated.structuredfileconsumer1_outTable"
+					}
+				]
+			}
+		},
+		"tableproducer1": {
+			"component": "com.sap.database.table.producer.v2",
+			"metadata": {
+				"label": "Table Producer",
+				"x": 186,
+				"y": 12,
+				"height": 80,
+				"width": 120,
+				"extensible": false,
+				"generation": 1,
+				"config": {
+					"service": "HDL_DB",
+					"serviceConnection": {
+						"configurationType": "Configuration Manager",
+						"connectionID": "zHDL"
+					},
+					"source": {
+						"remoteObjectReference": {
+							"connection": {
+								"id": "zHDL",
+								"type": "HDL_DB"
+							},
+							"qualifiedName": "/USER1/VEHICLECOUNT",
+							"name": "VEHICLECOUNT",
+							"owner": "USER1"
+						},
+						"schema": {
+							"genericType": "TABLE",
+							"tableBasedRepresentation": {
+								"attributes": [
+									{
+										"name": "DATE",
+										"templateType": "date"
+									},
+									{
+										"name": "VEHICLECOUNT",
+										"templateType": "int32"
+									},
+									{
+										"name": "LOCATION",
+										"templateType": "string",
+										"length": 4
+									}
+								]
+							}
+						}
+					},
+					"mode": "overwrite",
+					"attributeMappings": [
+						{
+							"expression": "\"DATE\"",
+							"target": "DATE"
+						},
+						{
+							"expression": "\"VEHICLECOUNT\"",
+							"target": "VEHICLECOUNT"
+						},
+						{
+							"expression": "\"LOCATION\"",
+							"target": "LOCATION"
+						}
+					]
+				},
+				"inports": [
+					{
+						"name": "inTable",
+						"type": "table",
+						"vtype-ID": "$GRAPH.generated.structuredfileconsumer1_outTable"
+					}
+				]
+			}
+		},
+		"graphterminator1": {
+			"component": "com.sap.util.graphTerminator",
+			"metadata": {
+				"label": "Graph Terminator",
+				"x": 355,
+				"y": 12,
+				"height": 80,
+				"width": 120,
+				"generation": 1,
+				"config": {}
+			}
+		}
+	},
+	"groups": [],
+	"connections": [
+		{
+			"metadata": {
+				"points": "141,52 181,52"
+			},
+			"src": {
+				"port": "outTable",
+				"process": "structuredfileconsumer1"
+			},
+			"tgt": {
+				"port": "inTable",
+				"process": "tableproducer1"
+			}
+		},
+		{
+			"metadata": {
+				"points": "310,52 350,52"
+			},
+			"src": {
+				"port": "outMessage",
+				"process": "tableproducer1"
+			},
+			"tgt": {
+				"port": "stop",
+				"process": "graphterminator1"
+			}
+		}
+	],
+	"inports": {},
+	"outports": {},
+	"metadata": {}
+}
