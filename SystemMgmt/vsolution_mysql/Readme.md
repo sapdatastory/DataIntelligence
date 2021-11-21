@@ -15,15 +15,15 @@ mysql-connector-odbc-8.0.12-linux-glibc2.12-x86-64bit.tar.gz) 를 다운로드 �
 
 ```shell
 # 디렉토리
-mkdir -p oracle_vsolution/content/files/flowagent
+mkdir -p mysql_vsolution/content/files/flowagent
 ```
 
 ```shell
 # solution 이름과 버전
-vi oracle_vsolution/manifest.json
+vi mysql_vsolution/manifest.json
 
 {
-    "name": "vsolution_oracle",
+    "name": "vsolution_mysql",
     "version": "1.0.0",
     "format": "2",
     "dependencies": []
@@ -32,66 +32,48 @@ vi oracle_vsolution/manifest.json
 
 ```shell
 # Client 프로그램의 압축 풀기 및 파일 링크 설정
-unzip instantclient-basic-linux.x64-12.2.0.1.0.zip  -d oracle_vsolution/content/files/flowagent/
-
-cd oracle_vsolution/content/files/flowagent/instantclient_12_2  
-
-ln -s libclntsh.so.12.1 libclntsh.so.12  
-
-ln -s libclntsh.so.12 libclntsh.so
-
-ln -s libclntshcore.so.12.1 libclntshcore.so.12
-
-ln -s libclntshcore.so.12 libclntshcore.so
-
-ln -s libocci.so.12.1 libocci.so.12
-
-ln -s libocci.so.12 libocci.so
+tar -xvzf mysql-connector-odbc-8.0.12-linux-glibc2.12-x86-64bit.tar.gz -C mysql_vsolution/content/files/flowagent/
 ```
 
 ```shell
 # DB 환경변수 설정
-vi oracle_vsolution/content/files/flowagent/oracle.properties
+vi mysql_vsolution/content/files/flowagent/mysql.properties
 
-ORACLE_INSTANT_CLIENT=./instantclient_12_2
-NLS_LANG=AMERICAN_AMERICA.UTF8
+MYSQL_DRIVERMANAGER=./mysql-connector-odbc-8.0.12-linux-glibc2.12-x86-64bit/lib/libmyodbc8w.so
 ```
 
 ```shell
 # solution 파일 생성
-cd oracle_vsoltion
+cd mysql_vsoltion
 
-zip -y -r oracle_vsolution.zip ./
+zip -r mysql_vsolution.zip ./
 
 ls -F
-content/			manifest.json		oracle_vsolution.zip
+content/		manifest.json		mysql_vsolution.zip
 ```
 
 
-<!--img src="images/jupyter_pipeline4.png" width="550" height="150"/-->
-
-
-### 2. Import oracle solution
+### 2. Import mysql solution
 
 DI Launchpad -> System Management<br>
 Tenant -> Solutions -> '+' button <br>
 
-![](images/vsol_ora_3.png) <br>
+![](images/vsol_mysql_2.png) <br>
 
-oracle_vsolution.zip 파일 선택 <br>
+mysql_vsolution.zip 파일 선택 <br>
 
-vsolution_oracle 확인 <br>
+vsolution_mysql 확인 <br>
 
 
 Tenant -> Strategy -> 'Edit' button <br>
 
-![](images/vsol_ora_4.png)<br>
+![](images/vsol_mysql_3.png)<br>
 
 '+' button <br>
 
-![](images/vsol_ora_5.png)<br>
+![](images/vsol_mysql_4.png)<br>
 
-vsolution_oracle-1.0.0 선택 <br>
+vsolution_mysql-1.0.0 선택 <br>
 
 'Save' button <br>
 
@@ -101,13 +83,13 @@ vsolution_oracle-1.0.0 선택 <br>
 DI Launchpad -> System Management<br>
 Applications -> 'flowagent' Search -> Restart Icon <br>
 
-![](images/vsol_ora_6.png)<br>
+![](images/vsol_mysql_5.png)<br>
 
 
 ### 4. Tenant 환경에서 flowagent 확인
 
 Fils -> Union View <br>
-files -> flowagent -> instantclient_12_2 디렉토리 and oracle.properties 파일 <br>
+files -> flowagent -> mysql-connector-odbc-8.0.12-linux-glibc2.12-x86-64bit 디렉토리, mysql.properties 파일 <br>
 
-![](images/vsol_ora_7.png)<br>
+![](images/vsol_mysql_6.png)<br>
 
