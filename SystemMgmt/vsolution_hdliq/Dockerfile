@@ -29,7 +29,7 @@ RUN python3 -m pip --no-cache install tornado==5.0.2 && \
      python3 -m pip --no-cache install numpy && \
      python3 -m pip --no-cache install scikit-learn
 
-# SAP IQ
+# HDLIQ
 RUN python3 -m pip --no-cache install sqlanydb
 
 # SAP NW RFC
