@@ -2,6 +2,7 @@
 
 Oracle DB에 액세스 하려면 먼저 Oracle Instant Client를 다운로드 및 등록해야 합니다. <br>
 
+
 ### 1. Create oracle_vsolution
 Oracle Instant Client 프로그램(Linux x86-64, Version 12.2.0.1.0)를 다운로드 합니다.<br>
 https://www.oracle.com/database/technologies/instant-client/downloads.html
@@ -73,48 +74,44 @@ content/			manifest.json		oracle_vsolution.zip
 
 <!--img src="images/jupyter_pipeline4.png" width="550" height="150"/-->
 
-### 2. Import hdliq solution
+
+### 2. Import oracle solution
 
 DI Launchpad -> System Management<br>
 Tenant -> Solutions -> '+' button <br>
 
-![](images/vsol_docker_1.png) <br>
+![](images/vsol_ora_3.png) <br>
 
-hdl_vsolution.zip 파일 선택 <br>
+oracle_vsolution.zip 파일 선택 <br>
 
-<img src="images/vsol_docker_2.png" width="500" height="250"/> <br>
+vsolution_oracle 확인 <br>
 
-vsolution_hdliq 확인 <br>
-
-![](images/vsol_docker_3.png)<br>
 
 Tenant -> Strategy -> 'Edit' button <br>
 
-![](images/vsol_docker_4.png)<br>
+![](images/vsol_ora_4.png)<br>
 
 '+' button <br>
 
-![](images/vsol_docker_5.png)<br>
+![](images/vsol_ora_5.png)<br>
 
-vsolution_hdliq-1.0.0 선택 <br>
-
-<img src="images/vsol_docker_6.png" width="600" height="400"/> <br>
+vsolution_oracle-1.0.0 선택 <br>
 
 'Save' button <br>
 
-![](images/vsol_docker_7.png)<br>
 
-### 3. Tenant 환경에서 Dockerfile 확인
+### 3. Restart flowagent
+
+DI Launchpad -> System Management<br>
+Applications -> 'flowagent' Search -> Restart Icon <br>
+
+![](images/vsol_ora_6.png)<br>
+
+
+### 4. Tenant 환경에서 flowagent 확인
 
 Fils -> Union View <br>
-files -> vflow -> dockerfiles -> zdemo -> z_hdliq<br>
+files -> flowagent -> instantclient_12_2 디렉토리 and oracle.properties 파일 <br>
 
-![](images/vsol_docker_8.png)<br>
-![](images/vsol_docker_9.png)<br>
+![](images/vsol_ora_7.png)<br>
 
-### 4. 사용자 환경에서 Dockerfile 확인
-
-DI Launchpad -> Modeler <br>
-Repository -> dockerfiles -> zdemo -> z_hdliq -> Dockerfile <br>
-
-![](images/vsol_docker_10.png)<br>
