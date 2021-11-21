@@ -1,5 +1,7 @@
 # hdliq dockerfile vsolution Example
 
+Tenant 사용자 모두가 Dockerfile를 공유/사용하려고 할 때<br>
+
 ### 1. Create hdliq_vsolution
 
 ```shell
