@@ -12,14 +12,14 @@ cp Dockerfile hdliq_vsolution/content/files/vflow/dockerfiles/zdemo/z_hdliq
 cp Tags.json hdliq_vsolution/content/files/vflow/dockerfiles/zdemo/z_hdliq
 
 cp iq171.TGZ hdliq_vsolution/content/files/vflow/dockerfiles/zdemo/z_hdliq
-
-ls hdliq_vsolution/content/files/vflow/dockerfiles/zdemo/z_hdliq
 ```
 
 ```shell
-cd hdliq_vsoltion
+vi hdliq_vsoltion/manifest.json
+```
 
-vi hdliq_vsolution/manifest.json
+```shell
+# mainfest.json
 {
     "name": "vsolution_hdliq",
     "version": "1.0.0",
