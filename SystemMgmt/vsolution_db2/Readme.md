@@ -4,14 +4,25 @@ DB2 DB에 액세스 하려면 먼저 IBM Data Server Driver for ODBC and CLI (CL
 
 
 ### 1. Create db2_vsolution
-MySQL ODBC Connector 프로그램(Version 8.0.12, Linux - Generic (glibc 2.12)(x86,64-bit))를 다운로드 합니다.<br>
-https://downloads.mysql.com/archives/c-odbc/
+DB2 ODBC CLI driver 프로그램(Version 10.1, Linux x86_64)를 다운로드 합니다.<br>
+https://www.ibm.com/support/pages/db2-odbc-cli-driver-download-and-installation-information
 <br>
 
-버전은 반드시 8.0.12를 선택합니다. 다른 버전 선택 시 연결 이슈가 발생할 수도 있습니다. <br>
+Download 선택 <br>
+
+![](images/vsol_db2_1_1.png) <br>
+
+IBM Data Server Packages (10.1.*,All platforms) 선택 <br>
+
+![](images/vsol_db2_1_2.png) <br>
+
+DSClients-linuxx64-odbc_cli-10.1.0.6-FP006 선택 <br>
+
+![](images/vsol_db2_1_3.png) <br>
+
 v10.1fp6_linuxx64_odbc_cli.tar.gz 를 다운로드 합니다.<br>
 
-![](images/vsol_db2_1.png) <br>
+![](images/vsol_db2_1_4.png) <br>
 
 ```shell
 # 디렉토리
@@ -32,7 +43,7 @@ vi db2_vsolution/manifest.json
 
 ```shell
 # Client 프로그램의 압축 풀기 및 파일 링크 설정
-tar -xvzf ibm-db2-odbc-<VERSION>.tar.gz -C db2_vsolution/content/files/flowagent
+tar -xvzf v10.1fp6_linuxx64_odbc_cli.tar.gz -C db2_vsolution/content/files/flowagent
 ```
 
 ```shell
