@@ -55,17 +55,28 @@ Tenant -> Strategy -> 'Edit' button <br>
 
 ![](images/vsol_docker_4.png)<br>
 
-Add Solutions -> '+' Button <br>
+'+' button <br>
 
 ![](images/vsol_docker_5.png)<br>
 
-![](images/vsol_docker_6.png)<br>
+vsolution_hdliq-1.0.0 선택 <br>
+
+<img src="images/vsol_docker_6.png" width="600" height="400"/> <br>
+
+'Save' button <br>
 
 ![](images/vsol_docker_7.png)<br>
 
+Fils -> Union View <br>
+files -> vflow -> dockerfiles -> zdemo -> z_hdliq<br>
+
 ![](images/vsol_docker_8.png)<br>
 
+
 ![](images/vsol_docker_9.png)<br>
+
+DI Launchpad -> Modeler <br>
+Repository -> dockerfiles -> zdemo -> z_hdliq -> Dockerfile <br>
 
 ![](images/vsol_docker_10.png)<br>
 
