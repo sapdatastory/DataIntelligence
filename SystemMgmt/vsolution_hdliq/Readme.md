@@ -1,6 +1,6 @@
 # hdliq dockerfile vsolution Example
 
-### Create hdliq vsolution
+### 1. Create hdliq vsolution
 
 ```shell
 mkdir -p hdliq_vsolution/content/files/vflow/dockerfiles/zdemo/z_hdliq
@@ -33,7 +33,12 @@ ls -F
 content/		hdliq_vsolution.zip	    manifest.json
 ```
 
-### import hdliq vsolution
+### 2. Import hdliq vsolution
+
+DI Launchpad -> System Management<br>
+Tenant -> Solutions<br>
+
+
 
 
 
