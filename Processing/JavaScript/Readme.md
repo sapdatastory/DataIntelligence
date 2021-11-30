@@ -2,7 +2,7 @@
 JavaScript Operator를 사용하면 Graph내에서 JavaScript를 실행할 수 있습니다.
 
 ## 기본 예제
-다음 예제는 input port에서 들어오는 모든 메시지를 계산하고 그 수를 output port로 출력합니다.
+다음 예는 input port에서 들어오는 모든 메시지를 계산하고 그 수를 output port로 출력합니다.
 ```shell
 var counter = 0
 
@@ -14,7 +14,9 @@ function onInput(ctx,s) {
 }
 ```
 
-Generators
+## Generators
+Generator는 이벤트 처리 루프가 시작되기 전에 실행될 함수입니다.<br>
+다음 예는 output port에 0, 1, 2, 3, 4, 5 값을 생성합니다.
 ```shell
 var counter = 0
 
