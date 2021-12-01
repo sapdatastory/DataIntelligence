@@ -500,17 +500,10 @@ Working with Dynamic Types
 
 포트는 정적이거나 동적으로 유형이 지정될 수 있습니다. 정적 포트에는 고정 유형과 ID가 있는 반면 동적 포트는 고정 유형을 유지하지만 모든 유형 ID를 보내거나 받을 수 있습니다. 한 가지 예는 항상 테이블을 출력하지만 각 테이블은 다른 스키마를 가질 수 있는 동적 테이블 출력입니다. 동적 포트의 ID는 `*`입니다.
 
-'with_writer' 인터페이스를 사용하여 스트림을 통해 데이터를 출력하기 위해 동적 포트를 사용할 때 먼저 'publisher.set_dynamic_type'을 호출하여 유형을 동적 포트에 연결해야 합니다.
-'게시' 인터페이스를 사용할 때 데이터에 유형 정보가 포함되어 있지 않으면 엔진이 이를 유추하려고 시도합니다.
+`with_writer` 인터페이스를 사용하여 스트림을 통해 데이터를 출력하기 위해 동적 포트를 사용할 때 먼저 `publisher.set_dynamic_type`을 호출하여 유형을 동적 포트에 연결해야 합니다.
+`publish` 인터페이스를 사용할 때 데이터에 유형 정보가 포함되어 있지 않으면 엔진이 이를 유추하려고 시도합니다.
 
 다음 예에서는 런타임에 새 테이블 유형을 만들고 작성자를 가져오기 전에 게시자에 연결합니다.
-
-Ports can be either static or dinamically typed. Static ports have a fixed type and ID, while dynamic ports keep the fixed type but allow for any type ID to be sent or received. One example is a dynamic table output that always outputs tables, but each table can have a different schema. The ID of a dynamic port is `*`.
-
-When using dynamic ports to output data via streams using the `with_writer` interface, first, you must call `publisher.set_dynamic_type` to associate a type to the dynamic port.
-When using the `publish` interface, if the data do not contain the type information, the engine tries to infer it.
-
-In the following example, we create a new table type in runtime and associate it to our publisher before getting the writer:
 ```python
 def create_new_dynamic_table():    
     columns_definition = {
@@ -533,7 +526,7 @@ def create_new_dynamic_table():
 api.set_prestart(create_dynamic_table)
 ```
 
-In the next example instead of manually defining the columns, we would like to leave the engine infer it:
+다음 예에서는 열을 수동으로 정의하는 대신 엔진에서 추론하도록 하고 싶습니다.
 ```python
 def create_dynamic_table():
     
@@ -557,13 +550,13 @@ api.set_prestart(create_dynamic_table)
 
 Record
 -----
-A Record is an iterable class that represents a collection of either scalars or tables. Its constructor can be called from `api.Record`. 
+레코드는 스칼라 또는 테이블의 컬렉션을 나타내는 반복 가능한 클래스입니다. 생성자는 `api.Record`에서 호출할 수 있습니다.
 
-Its elements can be accessed via indexing.
+해당 요소는 인덱싱을 통해 액세스할 수 있습니다.
 
-> :arrows_counterclockwise: Currently under development. Not available yet.
+> :arrows_counterclockwise: 현재 개발 중입니다. 아직 사용할 수 없습니다.
 
-It offers the following methods:
+다음과 같은 방법을 제공합니다.
 
 #### record.get_field_names()
     Returns (List(str)): list with the names of the fields that compose the structure.
@@ -571,7 +564,7 @@ It offers the following methods:
 #### record.get_field_type_ids()
     Returns (List(str)): list with the type IDs of the fields that compose the structure.
 
-For the following example, let's assume an operator that has an input port `input1` of a fictional table of ID `my.simpleStructure`. This table contains 3 columns:
+다음 예에서 ID가 `my.simpleStructure`인 가상 테이블의 입력 포트 `input1`이 있는 연산자를 가정해 보겠습니다. 이 테이블에는 3개의 열이 있습니다.
 
 | Field Name                      | Field type     | Field id          | 
 | --------------------------      | ------------   |  ------------      |
@@ -580,7 +573,7 @@ For the following example, let's assume an operator that has an input port `inpu
 | salary	                      | scalar         | com.sap.core.float64|
 
 
-In the example code, we read the data from the input port and access the fields first using indexing and then by the name fields.
+예제 코드에서는 입력 포트에서 데이터를 읽고 먼저 인덱싱을 사용하여 필드에 액세스한 다음 이름 필드로 액세스합니다.
 
 Example code:
 ```python
@@ -596,10 +589,10 @@ api.set_port_callback("input1", my_callback)
 
 Table
 -----
-A Table is an iterable class that represents an ordered collection of rows. Its constructor can be called from `api.Table`.
-Its elements can be accessed via indexing.
+테이블은 정렬된 행 모음을 나타내는 반복 가능한 클래스입니다. 생성자는 `api.Table`에서 호출할 수 있습니다.
+해당 요소는 인덱싱을 통해 액세스할 수 있습니다.
 
-Tables can have a type associated to it or not. To have a typed table you can either pass the desired type on its constructor or call `infer_dynamic_type` to create a new dynamic type to represent it.
+테이블에는 연결된 유형이 있을 수 있습니다. 유형이 지정된 테이블을 가지려면 생성자에 원하는 유형을 전달하거나 `infer_dynamic_type`을 호출하여 이를 나타내는 새 동적 유형을 생성할 수 있습니다.
 
 #### api.Table(data: List, type_id: str)
     Arguments:
@@ -609,7 +602,7 @@ Tables can have a type associated to it or not. To have a typed table you can ei
     Returns:
       new_table (api.Table): created api.Table
 
-It offers the following methods:
+다음과 같은 방법을 제공합니다.
 
 #### table.is_typed()
     Returns (bool): boolean representing if the table has a type associated to it or not.
@@ -627,16 +620,16 @@ It offers the following methods:
       type_ref (api.DataTypeReference): reference to new infered type
 
 
-> :arrows_counterclockwise: Currently under development. Not available yet.
+> :arrows_counterclockwise: 현재 개발 중입니다. 아직 사용할 수 없습니다.
 
 #### table.to_pandas()
     Returns (pandas.DataFrame): Dataframe converted from the body of the table object.
 
 Header
 ------
-Read-only dictionary whose first level is expected to have `str` as keys and `List` or `api.Record` as values.
+첫 번째 수준에 `str`이 key로, `List` 또는 `api.Record`가 값으로 있어야 하는 읽기 전용 dictionary입니다.
 
-As the header is a read-only structure, to modify, you should call its `.copy()` method to get a `dict` representation of the received header. This prevents unexpected changes as operators could point to the same header.
+헤더는 읽기 전용 structure이므로 수정하려면 `.copy()` 메서드를 호출하여 수신된 헤더의 `dict` 표현을 가져와야 합니다. 이렇게 하면 연산자가 동일한 헤더를 가리킬 수 있으므로 예기치 않은 변경이 방지됩니다.
 
 Example:
 ```python
@@ -655,7 +648,7 @@ def on_input(msg_id, header, body):
 
 InputBody
 ---------
-The InputBody is the class that wraps up the incoming data. It is received in the callback along with the message ID and the headers. It gives access directly to the object received or to a stream, depending on the type of the port associated.
+InputBody는 들어오는 데이터를 wrapping하는 클래스입니다. 메시지 ID 및 header와 함께 콜백에서 수신됩니다. 연결된 포트 유형에 따라 수신된 개체 또는 스트림에 직접 액세스할 수 있습니다.
 
 #### body.get()
     Return the data object for the following types:
@@ -686,9 +679,9 @@ The InputBody is the class that wraps up the incoming data. It is received in th
 
 TableWriter
 -----------
-Object to write into Table streams. Note that particularly with tables it is possible to output the table as a batch. For example, use the publish function of the publisher as well.
+테이블 스트림에 작성할 개체입니다. 특히 테이블의 경우 테이블을 일괄 처리로 출력할 수 있습니다. 예를 들어 게시자의 게시 기능도 사용합니다.
 
-It offers the functions:
+다음과 같은 기능을 제공합니다.
 
 #### writer.write(rows)
     Write a list of rows into the stream.
@@ -703,7 +696,7 @@ It offers the functions:
 
 TableReader
 -----------
-Object to read from Table streams. There is no EOF signaling if writer closed the stream. Instead, an empty table. 
+테이블 스트림에서 읽을 개체입니다. 작성자가 스트림을 닫은 경우 EOF 신호가 없습니다. 대신 빈 테이블이 있습니다.
 
 #### reader.read(n=-1)
     Read a list of rows from the stream and returns it in the table format. This function is blocked from returning if less than the desired number of rows is available and the stream is still open. If the stream is closed, read can return less than `n` rows. If `-1` is passed, rows are read until writer closes the stream.
@@ -738,7 +731,7 @@ def on_input(msg_id, header, body):
 
 BinaryWriter
 -----------
-Object to write into Binary streams. Note that it is also possible to output the bytes as a batch. For example, using the publish function as well.
+바이너리 스트림에 작성할 개체입니다. 바이트를 배치로 출력하는 것도 가능합니다. 예를 들어 게시 기능도 사용합니다.
 
 #### writer.write(data: bytes)
     Write a bytes into the stream.
@@ -755,7 +748,7 @@ Object to write into Binary streams. Note that it is also possible to output the
 
 BinaryReader
 -----------
-Object to read from a stream of bytes. If 0 bytes are returned, and the size was not 0, this indicates the end of the stream.
+바이트 스트림에서 읽을 개체입니다. 0바이트가 반환되고 크기가 0이 아니면 스트림의 끝을 나타냅니다.
 
 #### reader.read(n=-1)
     Read bytes from the stream. This function is blocked from returning if less than the desired number of bytes is available and the stream is still open. If the stream is closed, read can return less than n bytes. If -1 is passed, bytes are read until writer closes the stream.
@@ -767,9 +760,9 @@ Object to read from a stream of bytes. If 0 bytes are returned, and the size was
 Correspondence Type Templates, Python Types and dtypes
 -----------------------------------------------------
 
-When reading a table as a dataframe, if necessary, the individuals piece of the data from the table will be converted to a different format.
+테이블을 dataframe으로 읽을 때 필요한 경우 테이블의 개별 데이터 조각이 다른 형식으로 변환됩니다.
 
-In the table below, you can find the expected dtype for an element of a scalar type after the conversion from the table format to a pandas dataframe.
+아래 표에서 테이블 형식에서 pandas dataframe으로 변환한 후 스칼라 유형의 요소에 대해 예상되는 dtype을 찾을 수 있습니다.
 
 | type template | Python type | dtype          | Limitations                                                                               |
 |---------------|-------------|----------------|-------------------------------------------------------------------------------------------|
@@ -789,25 +782,25 @@ In the table below, you can find the expected dtype for an element of a scalar t
 | geometry      | bytes       | object         |                                                                                           |
 | geometryewkb  | bytes       | object         |                                                                                           |
 
-In the presence of nulls, the corresponding value in a dataframe is of type pd.NA (not available). When nulls are present, then the columns have mixed types and the column dtype is object.
+null이 있는 경우 dataframe의 해당 값은 pd.NA 유형입니다(사용할 수 없음). null이 있는 경우 열에는 혼합 유형이 있고 열 dtype은 개체입니다.
 
 State Management
 ----------------
 
-> This requires the graph to run with snapshot enabled. This directly affects the graph runtime but provides recovery.
+> 이렇게 하려면 스냅샷이 활성화된 상태에서 그래프를 실행해야 합니다. 이는 그래프 런타임에 직접적인 영향을 주지만 복구를 제공합니다.
 
-This should be used if the operator is expected to run with state management enabled, and it has an internal state. This operator is referred to as stateful. By default, all not stateful operators do not need to implement the functions below.
-To declare the operator stateful, it has to have the option set when calling `set_initial_snapshot_info`. In case it has a state, the operator has to implement at least `set_restore_callback` and `set_serialize_callback`.
+연산자가 상태 관리가 활성화된 상태에서 실행될 것으로 예상되고 내부 상태가 있는 경우에 사용해야 합니다. 이 연산자를 상태 저장이라고 합니다. 기본적으로 상태 저장이 아닌 모든 연산자는 아래 기능을 구현할 필요가 없습니다.
+연산자 상태를 선언하려면 `set_initial_snapshot_info`를 호출할 때 옵션이 설정되어 있어야 합니다. 상태가 있는 경우 운영자는 최소한 `set_restore_callback` 및 `set_serialize_callback`을 구현해야 합니다.
 
-Operators with support to state management can have two extra classes, generators and writers. Generators are further explained at `api.OutportInfo`. Writers are operators which have effects outside the graph. For example, operators writing into databases or writing to a publisher or subscriber queue.
-If an operator is a writer, it will offer at-least-once guarantee if it is stateful. This means, there is a guarantee that no data is lost, even though it could be written twice. Keep in mind being stateful requires implementing the restore and serialize functions.
-It is also possible to have exactly-once guarantee, this requires the writer to be idempotent on top of being stateful. Idempotency means equivalency when writing the same data several times.
+상태 관리를 지원하는 연산자는 generator와 writer라는 두 가지 추가 클래스를 가질 수 있습니다. generator는 `api.OutportInfo`에서 자세히 설명합니다. writer는 그래프 외부에 영향을 미치는 연산자입니다. 예를 들어 연산자가 데이터베이스에 쓰거나 게시자 또는 구독자 대기열에 쓰는 경우입니다.
+연산자가 작성자인 경우 상태 저장인 경우 최소 한 번 보증을 제공합니다. 즉, 두 번 쓸 수 있더라도 데이터가 손실되지 않는다는 보장이 있습니다. 상태를 저장하려면 복원 및 직렬화 기능을 구현해야 합니다.
+정확히 한 번 보장하는 것도 가능합니다. 이렇게 하려면 작성자가 상태 저장 외에도 멱등성이 있어야 합니다. 멱등성(idempotency)은 같은 데이터를 여러 번 쓸 때 등가성(equivalency)을 의미합니다.
 
-The following are some general observations regarding state management and how operators can support it.
- - A port callback should not be blocked while waiting for another. This leads to a deadlock.
- - Before saving a state, the shutdown function is not paused. So, the shutdown function should not change the operator state.
+다음은 상태 관리와 연산자가 이를 지원할 수 있는 방법에 관한 몇 가지 일반적인 관찰입니다.
+ - 포트 콜백은 다른 콜백을 기다리는 동안 차단되어서는 안 됩니다. 이로 인해 교착 상태가 발생합니다.
+ - 상태를 저장하기 전에 종료 기능이 일시 중지되지 않습니다. 따라서 종료 기능은 운영자 상태를 변경하지 않아야 합니다.
 
-The following example scripts show the state management functions usage. More details are described after it.
+다음 예제 스크립트는 상태 관리 기능 사용법을 보여줍니다. 자세한 내용은 뒤에 설명합니다.
 
 ```python
 
@@ -874,8 +867,8 @@ api.set_epoch_complete_callback(complete_callback)
     Args:
         callback (func[str] -> bytes): The function should expect the epoch as a parameter. Epoch uniquely identifies the state that is being recovered. It should return the serialized operator state.
 
-In general, it is not recommended to operators with support to state management to spawn new threads or processes that can change the internal operator state or send data to the output ports. If this cannot be avoided, the `set_pause_callback` and `set_resume_callback` have to be used.
-An example would be if an operator starts a thread inside an input port callback, and this thread writes into output ports. This requires implementing the two functions and they could rely on `threading.Lock`. The pause callback can acquire the lock, while the resume callback would release it.
+일반적으로 상태 관리를 지원하는 연산자에게 내부 연산자 상태를 변경하거나 데이터를 출력 포트로 보낼 수 있는 새 스레드 또는 프로세스를 생성하는 것은 권장되지 않습니다. 이것을 피할 수 없다면 `set_pause_callback`과 `set_resume_callback`을 사용해야 합니다.
+예를 들어 연산자가 입력 포트 콜백 내부에서 스레드를 시작하고 이 스레드가 출력 포트에 쓰는 경우입니다. 이를 위해서는 두 가지 기능을 구현해야 하며 `threading.Lock`에 의존할 수 있습니다. 일시 중지 콜백은 잠금을 획득할 수 있는 반면 재개 콜백은 잠금을 해제합니다.
 
 #### api.set_pause_callback(None)
     This function needs to finish or pause all actions that can affect the internal operator state before it returns.
@@ -911,7 +904,7 @@ def my_callback_func(data):
 api.set_port_callback("input", my_callback_func)
 ```
 
-Alternatively, you can also place initialization code in the prestart function by registering a function with `api.set_prestart(func)`.
+또는 `api.set_prestart(func)`로 함수를 등록하여 사전 시작 함수에 초기화 코드를 넣을 수도 있습니다.
 
-Note that output is possible only after operator initialization. Therefore, only during prestart, timer, and port callbacks.
+출력은 연산자 초기화 후에만 가능합니다. 따라서 사전 시작, 타이머 및 포트 콜백 중에만.
 
