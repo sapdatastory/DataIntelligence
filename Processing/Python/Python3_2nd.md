@@ -94,7 +94,7 @@ api.outputs.`port`.publish(binary_data, n, header=None, response_callback=None)
 ----------------------------------------
     Publish the first `n` bytes from `data` (assumed to be a file object) and `header` to outport named `port`. If `n` is -1, a parallel stream connection is created and data is transfered through it.
 
-> Output is possible only after operator initialization. Therefore, only during prestart, timer, and port callbacks.
+> 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
     Args:
         data (...): file object, for example io.BytesIO.
@@ -134,7 +134,7 @@ api.outputs.`port`.with_writer(header=None, response_callback=None)
     Create a stream writer to outport named `port`.
     In the case of a dynamic port, api.outputs.port.set_dynamic_type should be previously called. For more details, see section "Working with Dynamic Types".
 
-> Output is possible only after operator initialization. Therefore, only during prestart, timer, and port callbacks.
+> 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
     Args:
         header (Header|dict, optional): dictionary mapping `header name`->[`header content`]. `Header` type, from port callbacks can also be used. If no header is provided, an empty header is used as default.
@@ -170,7 +170,7 @@ api.outputs.`port`.publish(None, header=headers, response_callback=None)
 ----------------------------------------
     Publish `none` type, which only contains headers and no body data, to outport named `port`.
 
-> Output is possible only after operator initialization. Therefore, only during prestart, timer, and port callbacks.
+> 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
     Args:
         None: Used to signal the empty body, as the `none` type does not have data.
@@ -208,7 +208,7 @@ api.outputs.`port`.set_dynamic_type(dynamic_type)
     Returns:
         None
 
-For an example, see section "Working with dynamic types".
+예를 들어 "Working with dynamic types" 섹션을 참조하세요.
     
 Port Callbacks
 --------------
@@ -245,7 +245,7 @@ def prestart_function():
 
 api.set_prestart(prestart_function)
 ```
-This example produces values 0,1,2 on the output port "output".
+이 예는 출력 포트 "output"에서 0,1,2 값을 생성합니다.
 
 Timers
 ------
@@ -273,7 +273,7 @@ api.set_response_callback("output", response_callback)
 
 api.add_timer(t1)
 ```
-This example produces value 0,1,2... on port "output" every 0,1,2... seconds until graph shutdown.
+이 예는 그래프가 종료될 때까지 0,1,2...초마다 포트 "output"에서 0,1,2... 값을 생성합니다.
 
 
 Shutdown
@@ -705,7 +705,7 @@ TableReader
     Returns:
         table (api.Table): Table object containing the read rows.
 
-> :arrows_counterclockwise: Currently under development. Not available yet.
+> :arrows_counterclockwise: 현재 개발 중입니다. 아직 사용할 수 없습니다.
 #### reader.read_dataframe(n=-1)
     Read a list of rows from the stream and returns it in the dataframe form. This function is blocked from returning if less than the desired number of rows is available and the stream is still open. If the stream is closed, read can return less than n rows. If -1 is passed, rows are read until writer closes the stream.
     Args:
