@@ -155,17 +155,17 @@ Predefined Functions
 
 짧은 설명을 보려면 함수 이름(코드 셀 내부) 위에 있는 `Shift-Tab`을 누르고 전체 설명을 보려면 `Shift-Tab-Tab`을 눌러 Jupyter 노트북 UI 내에서 언제든지 함수 문서에 액세스할 수 있습니다.
 
-##### api.send(port, data)
+#### api.send(port, data)
 
-##### api.get_config()
+#### api.get_config()
 
-##### api.add_dependency(package_name)
+#### api.add_dependency(package_name)
 
-##### api.try_port_callback(ports, callback)
+#### api.try_port_callback(ports, callback)
 
-##### api.set_port_callback(ports, callback)
+#### api.set_port_callback(ports, callback)
 
-##### api.remove_port_callback(callback)
+#### api.remove_port_callback(callback)
 
 Correspondence between Modeler types and Python types
 -----
