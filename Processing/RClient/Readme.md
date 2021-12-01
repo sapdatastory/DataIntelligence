@@ -30,10 +30,41 @@ ID: debugMode | Type: boolean | Default: “false”
 - Table Name by Outport: 아웃포트 이름에서 테이블 이름으로의 매핑은 데이터 프레임이 지정된 아웃포트로 전송될 때 사용됩니다. configuration에 정의되지 않은 출력에서 데이터 프레임이 전송되면 결과 message.table은 'rclient' + < outportName > 으로 채워진 테이블 이름을 갖게 됩니다.<br>
 ID: tableNameByOutport | Type: array | Default: []
 
-## Configuration Parameters
+## Allowed Types and (Data Pipeline)/R Type Equivalences
+### Allowed Types in In/Out Ports
+- string
+- blob ([]byte)
+- float64
+- int64
+- uint64
+- arrays of the types above (for example: []string, [][]float64, etc)
+- byte
+- message
+- any
+
+### (Data Intelligence Modeler)/R Type Equivalences
+|**Data Intelligence Modeler**|**R**|
+|:-----|:-----|
+|string|character|
+|blob|raw|
+|float64|double/numeric (64 bits)|
+|int64|integer (signed 32 bits)|
+|uint64|integer (signed 32 bits)|
+|slice or array|vector|
+|byte|integer (signed 32 bits)|
+|message*|list(Body,Attributes,Encoding)|
+|message.table**|data frame|
+
+|* 필드 인코딩이 'table'과 다른 메시지. R에서 메시지 생성의 예: m <- list(Body=11, Attributes=list(field1="foo"), Encoding="bar").|
+|---|
+|** 필드 인코딩이 'table'인 메시지. R에서는 data frame으로 표현됩니다.|
+
+참고: R Client 연산자는 Go와 R 간의 숫자 변환 중에 데이터 손실이 발생하는 경우 경고 또는 오류가 발생하지 않습니다. 예를 들어, 일부 uint64 값은 R에서 double 또는 integer로 표시될 수 없습니다. R 클라이언트는 이러한 경우의 결과를 지정하지 않습니다.<br>
+
+참고: complex number, matrix, factor와 같은 일부 R 유형은 Modeler 및 R 변환 중에 지원되지 않습니다. R Client 출력 포트에서 전송하면 때때로 오류가 발생하지 않을 수 있지만 결과는 정의되지 않습니다.<br>
+
+이 섹션에 표시된 table는 operator의 포트에서 직접 사용할 수 있는 유형만 다룹니다. message 데이터 유형의 내부 필드에서 사용할 수 있는 유형과 관련된 자세한 정보는 Go/R Type Equivalences and Conversions 섹션에서 볼 수 있습니다.
 
 ```shell
-
-
 ```
 
