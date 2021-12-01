@@ -1,11 +1,11 @@
 Python 3
 ========
 
-When using the Python3 operator, you can define a script that offers some convenience functions provided by the `api` object. For example, you can set a callback that is called when you receive new data in the "datain" port by writing `api.set_port_callback("datain", callback_name)`. 
+Python3 연산자를 사용할 때 `api` 객체가 제공하는 몇 가지 편의 기능을 제공하는 스크립트를 정의할 수 있습니다. 예를 들어 `api.set_port_callback("datain", callback_name)`을 작성하여 "datain" 포트에 새 데이터를 수신할 때 호출되는 콜백을 설정할 수 있습니다.
 
-An operator extending the Python 3 Operator can be created directly in the Modeler's **Repository** tab.
+Python 3 연산자를 확장하는 연산자는 Modeler의 **Repository** 탭에서 직접 생성할 수 있습니다.
 
-> This operator runs on Python 3.6.
+> 이 연산자는 Python 3.6에서 실행됩니다.
 
 Configuration Parameters
 ------------
@@ -34,7 +34,7 @@ Output
 
 Basic Examples
 ------
-This snippet counts all incoming messages on port named "input" and type (scalar, "com.sap.core.int64") and writes the count to the port named "output" and type (scalar, "com.sap.core.int64").
+이 snipphet은 이름이 "input"이고 유형(scalar, "com.sap.core.int64")인 포트에서 들어오는 모든 message를 계산하고 "output"이라는 포트와 유형(scalar, "com.sap.core.txt")에 개수를 씁니다. int64").
 
 ```python
 counter = 0
@@ -47,13 +47,13 @@ def on_input(msg_id, header, data):
 api.set_port_callback("input", on_input)
 ```
 
-Notice that the port "output" of an operator containing the above script should be of type `com.sap.core.int*` since the variable `counter` is of Python type `int`. See the `Correspondence between Core Scalars and Python types` section for more information on how to choose your port types.
+위 스크립트를 포함하는 연산자의 포트 "output"은 변수 `counter`가 파이썬 유형 `int`이기 때문에 `com.sap.core.int*` 유형이어야 합니다. 포트 유형을 선택하는 방법에 대한 자세한 내용은 `Correspondence between Core Scalars and Python types` 섹션을 참조하세요.
 
 api.outputs.`port`.publish(data, header=None, response_callback=None)
 ----------------------------------------
     Publish `data` and `header` to outport named `port`.
 
-> Output is possible only after operator initialization. Therefore, only during prestart, timer, and port callbacks.
+> 연산자 초기화 후에만 출력이 가능합니다. 따라서 prestart, timer, callback 중에만.
 
     Args:
         data (...): Data to be sent.
@@ -886,12 +886,12 @@ An example would be if an operator starts a thread inside an input port callback
 
 FAQ
 ---
-#### Where should I place initialization code for my operator?
+#### 연산자의 초기화 코드는 어디에 배치해야 합니까?
 
-The script is executed just once. The callback functions defined
-in the script can be executed multiple times, but the commands from the
-script's outermost scope are executed just once. This implies that
-you can simply place the initialization code in the body of the script. See the example below:
+스크립트는 한 번만 실행됩니다. 
+스크립트에 정의된 콜백 함수는 여러 번 실행할 수 있지만 스크립트의 가장 바깥쪽 범위의 명령은 한 번만 실행됩니다. 
+이는 스크립트 본문에 초기화 코드를 간단히 배치할 수 있음을 의미합니다. 
+아래 예를 참조하십시오.
 
 ```python
 # Hypothetical script for Python3Operator
@@ -911,8 +911,3 @@ Alternatively, you can also place initialization code in the prestart function b
 
 Note that output is possible only after operator initialization. Therefore, only during prestart, timer, and port callbacks.
 
-
-<br>
-<div class="footer">
-   &copy; 2020 SAP SE or an SAP affiliate company. All rights reserved.
-</div>
