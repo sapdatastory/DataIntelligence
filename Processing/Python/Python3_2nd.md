@@ -1,4 +1,4 @@
-Python 3
+Python3 Operator 2세대
 ========
 
 Python3 연산자를 사용할 때 `api` 객체가 제공하는 몇 가지 편의 기능을 제공하는 스크립트를 정의할 수 있습니다. 예를 들어 `api.set_port_callback("datain", callback_name)`을 작성하여 "datain" 포트에 새 데이터를 수신할 때 호출되는 콜백을 설정할 수 있습니다.
