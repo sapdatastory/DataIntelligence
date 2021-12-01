@@ -173,7 +173,7 @@ $.getMultiplicityIndex(): 범위의 정수를 반환합니다.<br>
 (0,$.getMultiplicity()) 이 연산자의 여러 인스턴스를 구별하는 데 사용할 수 있습니다.
 
 ## Send message to logging app
-로그 함수를 통해 사용자는 Data Intelligence Logging app에 메시지를 보낼 수 있습니다. 이 기능의 매개변수는 메시지, severity, messageCode, details 입니다. severity 매개변수는 선택 사항이며 다음 열거형의 값 중 하나를 사용합니다.<br>
+로그 함수를 통해 사용자는 Data Intelligence Logging app에 메시지를 보낼 수 있습니다. 이 기능의 매개변수는 message, severity, messageCode, details 입니다. severity 매개변수는 선택 사항이며 다음 열거형의 값 중 하나를 사용합니다.<br>
 logSeverity.ERROR<br>
 logSeverity.INFO<br>
 logSeverity.WARNING<br>
