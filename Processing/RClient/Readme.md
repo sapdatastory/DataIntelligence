@@ -1,25 +1,24 @@
 R Client
 =======
 
-The R Client operator runs R code that you defined in the Rserve. You can specify the code you want to run by
-writing an R script and adding callbacks by using the predefined `api` object.
-For example, you can set a callback function `myFunc` that is called when you receive new data in the port "input1",
-and then send data on port "output2" by writing `api$setPortCallback(c("input1"), c("output2"), "myFunc")`.
+R 클라이언트 연산자는 Rserve에서 정의한 R 코드를 실행합니다. 실행할 코드를 지정할 수 있습니다.
+미리 정의된 `api` 객체를 사용하여 R 스크립트를 작성하고 콜백을 추가합니다.
+예를 들어 "input1" 포트에서 새로운 데이터를 수신할 때 호출되는 콜백 함수 `myFunc`를 설정할 수 있습니다.
+그런 다음 `api$setPortCallback(c("input1"), c("output2"), "myFunc")`을 작성하여 포트 "output2"에 데이터를 보냅니다.
 
-The functionalities offered by the `api` object are the following:
+`api` 객체가 제공하는 기능은 다음과 같습니다.
 - `api$setPortCallback(inports, outports, functionName)`
 - `api$addTimer(period, outports, functionName)`
 - `api$setSwitchCallback(inports, outports, functionName)`
 - `api$addShutdownHandler(functionName)`
 
-Each of those functionalities will be discussed in later sections.
+이러한 각 기능은 이후 섹션에서 설명합니다.
 
-Your script will run during the initialization of the R Client operator.
-For code that should run after the initialization, you can add and
-define callbacks in the script, by using methods from the `api` object
-such as: setPortCallback, addTimer, setSwitchCallback, and addShutdownHandler.
+스크립트는 R 클라이언트 연산자를 초기화하는 동안 실행됩니다.
+초기화 후에 실행해야 하는 코드의 경우 `api` 객체의 메소드를 사용하여 스크립트에서 콜백을 추가하고 정의할 수 있습니다.
+예: setPortCallback, addTimer, setSwitchCallback 및 addShutdownHandler.
 
-> Note: This operator is built with R 4.1.0
+> 참고: 이 연산자는 R 4.1.0으로 구축되었습니다.
 
 Configuration Parameters
 ------------
