@@ -210,7 +210,7 @@ If you add a json object to a configuration field in the Modeler, it becomes a d
 
 Logging
 -------
-To log messages, use `api.logger.info("some text")`, `api.logger.debug("")`, `api.logger.warn("")`, or `api.logger.error("")`.
+message를 기록하려면 `api.logger.info("some text")`, `api.logger.debug("")`, `api.logger.warn("")` 또는 `api.logger.error("")`를 사용하세요.
 
 Error handling
 -----
@@ -236,33 +236,33 @@ If you want the whole graph to stop with an error, follow the instructions from 
 repo_root and subengine_root
 ----------------------------
 
-You can access the repo_root and subengine_root path using api.repo_root and api.subengine_root, respectively.
+각각 api.repo_root 및 api.subengine_root를 사용하여 repo_root 및 subengine_root 경로에 액세스할 수 있습니다.
 
 graph_name, graph_handle and group_id
 -------------------------------------
 
-You can access the graph_name, graph_handle and group_id values using api.graph_name, api.graph_handle and api.group_id, respectively.
+api.graph_name, api.graph_handle 및 api.group_id를 사용하여 graph_name, graph_handle 및 group_id 값에 각각 액세스할 수 있습니다.
 
-* graph_name - identifier of a saved graph. Example: com.sap.dataGenerator
-* graph_handle - unique identifier of the graph instance. It is referred as Runtime Handle in the modeler user interface 
-* group_id - unique identifier of the group where the operator is running 
+* graph_name - 저장된 그래프의 식별자. 예: com.sap.dataGenerator
+* graph_handle - 그래프 인스턴스의 고유 식별자. 모델러 사용자 인터페이스에서는 런타임 핸들이라고 합니다.
+* group_id - operator가 실행 중인 그룹의 고유 식별자
 
 multiplicity, multiplicity_index
 --------------------------------
 
-Two variables can be accessed to obtain multiplicity-related information api.multiplicity and api.multiplicity_index:
+multiplicity 관련 정보 api.multiplicity 및 api.multiplicity_index를 얻기 위해 두 개의 변수에 액세스할 수 있습니다.
 
-* multiplicity - the multiplicity of the operator's group.
-* multiplicity_index - an integer in the range [0, multiplicity) that can be used to distinguish the multiple instances of this operator.
+* multiplicity - 연산자 그룹의 mulitplicity.
+* multiplicity_index - 이 연산자의 여러 인스턴스를 구별하는 데 사용할 수 있는 [0, multiplicity) 범위의 정수입니다.
 
 Inports and Outports
 ----------
 
-You can get the name of the input and output ports for the current operator instance by
-calling the methods `api.get_inport_names()` and `api.get_outport_names()`, respectively.
+각각 `api.get_inport_names()` 및 `api.get_outport_names()` 메소드를 호출하여 
+현재 operator 인스턴스에 대한 입력 및 출력 포트의 이름을 가져올 수 있습니다.
 
-You can check which inports or outports are connected by using the `api.is_inport_connected` and `api.is_outport_connected`
-dictionaries which have the name of the port as key and a boolean indicating whether it is connected as value.
+포트 이름을 key로 하고 연결 여부를 나타내는 boolean 값을 가지는 `api.is_inport_connected` 및 
+`api.is_outport_connected` dictionary을 사용하여 어떤 inport 또는 outport가 연결되어 있는지 확인할 수 있습니다.
 
 Example:
 ```python
@@ -274,13 +274,12 @@ if api.is_outport_connected["outport1"]:
 Message type
 ------------
 
-You can access the Message type in the api object as `api.Message`.
-The message type can be built such as the following:
-`api.Message(body, attributes)`, where body can be any object and
-attributes should be a dictionary of str to object, or None.
-The body argument is mandatory while attributes is optional and
-defaults to None. The body and attributes of a message object `msg` can be
-accessed as `msg.body` and `msg.attributes`, respectively.
+api 객체의 Message 유형은 `api.Message`로 접근할 수 있습니다.
+다음과 같이 메시지 유형을 작성할 수 있습니다.
+`api.Message(body, attributes)`, 여기서 body는 모든 객체가 될 수 있고 
+attribute는 객체에 대한 str의 dictionary이거나 None이어야 합니다.
+body 인수는 필수인 반면 attribute은 선택 사항이며 기본값은 None입니다. 
+message 객체 'msg'의 body과 attribute은 각각 `msg.body`와 `msg.attributes`로 접근할 수 있습니다.
 
 Correspondence between Modeler types and python types
 -----------------------------------------------------
