@@ -17,8 +17,14 @@ Modeler의 비동기 특성으로 인해 데이터 처리는 콜백으로 수행
 Configuration parameters
 ------------
 
-* **script** (mandatory): Inline script to be executed. If **script** starts with "file://", it specifies the path to the script file.  
-  ID: `script` | Type: `string` | Default: `""`
+* **Notebook File Path** (mandatory): Path to the notebook to be created or to be opened from the file system or ML scenario. Note that new notebooks can be created only in the graph folder (this is, the file path should include only a file name). For notebooks that belong to an ML scenario, this operator needs to be in a pipeline created from the ML Scenario Manager and the path should be the file name of the notebook. To reference an existing path, use the absolute path from the file system. In this case, this value should likely be a path from vrep that starts with “/files”. If the referenced file does not exist, it results in the pipeline failing. ID: `notebookFilePath` | Type: `string` | Default: `""`
+
+* **Productive** (mandatory): Flags whether the operator should run in productive mode or not.
+ID: `Productive` | Type: `boolean` | Default: `false`
+
+* **Timeout** (mandatory): The maximum number of seconds to wait for data at an input port.
+ID: `Timeout` | Type: `integer` | Default: `5`
+
 
 Input
 ------------
@@ -28,8 +34,17 @@ Output
 ------------
 * **None**
 
-Basic Examples
+Interacting with the jupyter notebook UI
+-----
+interactive 모드에서는 Jupyter 노트북 UI에 액세스하여 셀을 실행하여 데이터 스트림과 상호 작용할 수 있습니다.
+
+Jupyter 노트북 UI를 열려면 Modeler 캔버스에서 연산자를 마우스 오른쪽 버튼으로 클릭하고 "Open UI" 버튼을 클릭합니다. 노트북 인터페이스와 함께 새 탭이 열려야 합니다.
+
+Examples
 ------
+Writing data to an output port
+------
+
 "input" 포트에서 들어오는 모든 메시지를 계산하고 "output" 포트에 카운트를 씁니다.
 ```python
 counter = 0
