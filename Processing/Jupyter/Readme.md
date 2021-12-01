@@ -193,7 +193,7 @@ Predefined Functions
     Args:
         ports (str|list[str]): input ports to be associated with the callback. `ports` can be a list of strings with the name of each port to be associated, or a string if you want to associate the callback with a single port.
         callback (func[...]): a callback function with the same number of arguments as elements in `ports` or a variable-length argument. The arguments are passed to `callback` in the same order as their corresponding ports in the `ports` argument.
-    
+
 #### api.remove_port_callback(callback)
     Unregister the callback function. If the function is not registered, the method exits quietly.
 
