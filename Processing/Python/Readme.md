@@ -39,7 +39,7 @@ Output
 
 Basic Examples
 ------
-Count all incoming messages on the "input" port and write the count to the "output" port.
+"input" 포트에서 들어오는 모든 메시지를 계산하고 "output" 포트에 카운트를 씁니다.
 ```python
 counter = 0
 
@@ -51,9 +51,9 @@ def on_input(data):
 api.set_port_callback("input", on_input)
 ```
 
-Notice that "output" port of an operator containing the above script should be of type `int64`, since the variable `counter` is of Python type `int`. See `Correspondence between Modeler types and python types` for more information on how to choose your port types.
+위 스크립트를 포함하는 연산자의 "output" 포트는 'int64' 유형이어야 합니다. 변수 'counter'가 Python 유형 'int'이기 때문입니다. 포트 유형을 선택하는 방법에 대한 자세한 내용은 `Correspondence between Modeler types and python types`을 참조하세요.
 
-`api.set_port_callback` can also be used to wait for two input ports to have received data before calling the handler:
+`api.set_port_callback`은 핸들러를 호출하기 전에 두 개의 입력 포트가 데이터를 수신할 때까지 기다리는 데 사용할 수도 있습니다.
 
 ```python
 def on_input(data1, data2):
@@ -74,10 +74,10 @@ api.send(port, data)
 Port callbacks
 --------------
 #### api.set_port_callback(ports, callback)
-    This method associates input `ports` to the `callback`. The `callback` is only called when there are
-    messages available in all `ports`. If this method is called multiple times for the same port group,
-    the old `callback` is replaced by a new one. Different port groups cannot overlap. The same callback
-    function cannot be reused in different port groups.
+    이 메소드는 입력 `ports`를 `callback`에 연결합니다. 
+    'callback'은 모든 'ports'에서 사용할 수 있는 메시지가 있을 때만 호출됩니다. 
+    이 메소드가 동일한 포트 그룹에 대해 여러 번 호출되면 이전 'callback'이 새 'callback'으로 대체됩니다. 
+    다른 포트 그룹은 겹칠 수 없습니다. 동일한 콜백 함수를 다른 포트 그룹에서 재사용할 수 없습니다.
 
     Args:
         ports (str|list[str]): input ports to be associated with the callback. `ports` can be a list of strings
@@ -87,8 +87,8 @@ Port callbacks
                               The arguments are passed to `callback` in the same order of their corresponding
                               ports in the`ports` list.
 
-TIP: If you want to reuse the same callback function in multiple
-port groups, you can have a function that returns your function of interest:
+팁: 여러 포트 그룹에서 동일한 콜백 함수를 재사용하려는 경우 
+관심 있는 함수를 반환하는 함수를 사용할 수 있습니다.
 ```
 def get_my_callback():
   def my_callback(data):
@@ -98,11 +98,11 @@ def get_my_callback():
 api.set_port_callback("inport1", get_my_callback())
 api.set_port_callback("inport2", get_my_callback())
 ```
-This way, a new function (with different id) is generated
-each time, but the callback behaviour remains the same.
+이렇게 하면 매번 다른 ID를 가진 새 함수가 생성되지만 
+콜백 동작은 동일하게 유지됩니다.
 
 #### api.remove_port_callback(callback)
-    Deregister the `callback` function. If it does not exist, the method exits quietly.
+    `callback` 기능을 등록 취소합니다. 존재하지 않으면 메서드가 조용히 종료됩니다.
 
     Args:
         callback: Callback function to be removed.
