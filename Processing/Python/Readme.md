@@ -109,7 +109,7 @@ api.set_port_callback("inport2", get_my_callback())
 
 Generators
 ------
-Generators are functions that are executed before the event processing loop starts. They are executed in the order they are added.
+Generator는 이벤트 처리 루프가 시작되기 전에 실행되는 함수입니다. 추가된 순서대로 실행됩니다.
 ```python
 counter = 0
 
@@ -122,7 +122,7 @@ def gen():
 api.add_generator(gen)
 api.add_generator(gen)
 ```
-This example produces values 0,1,2,3,4,5 on the output port "output".
+이 예는 출력 포트 "output"에서 0,1,2,3,4,5 값을 생성합니다.
 
 Timers
 ------
@@ -285,12 +285,11 @@ accessed as `msg.body` and `msg.attributes`, respectively.
 Correspondence between Modeler types and python types
 -----------------------------------------------------
 
-The Modeler types are the ones that are allowed in the operator ports.
-For example, if you have an input port of type `blob` then the Python object
-that you are going to receive as argument to your port callback is
-of type `bytes`. If the output port of your operator has type `string`,
-you should send a Python object of type `str` in its output
-port.
+Modeler 유형은 operator 포트에서 허용되는 유형입니다.
+예를 들어 `blob` 유형의 입력 포트가 있는 경우 
+포트 콜백에 대한 인수로 수신할 Python 객체는 `bytes` 유형입니다. 
+연산자의 출력 포트 유형이 `string`인 경우
+출력 포트에 `str` 유형의 Python 객체를 보내야 합니다.
 
 | Modeler | Python3     |
 |---------|-------------|
@@ -302,21 +301,18 @@ port.
 | byte    | int         |
 | message | api.Message |
 
-You can also set a Python operator port type to `python36`. In this case,
-you are able only to connect this port to other Python operators.
-This can be useful if you need to send Python
-specific data types to other Python operators. Note that connections between
-`python36` ports that cross group boundaries are not allowed, and leads
-to runtime error.
+Python 연산자 포트 유형을 `python36`으로 설정할 수도 있습니다. 이 경우 
+이 포트를 다른 Python 연산자에만 연결할 수 있습니다.
+이것은 Python 특정 데이터 유형을 다른 Python 연산자에게 보내야 하는 경우에 유용할 수 있습니다. 
+그룹 경계를 넘는 `python36` 포트 간의 연결은 허용되지 않으며 런타임 오류가 발생합니다.
 
 FAQ
 ---
 #### Where should I place initialization code for my operator?
 
-The script is executed just once. The callback functions defined
-in the script can be executed multiple times, but the commands from the
-script's outermost scope are executed just once. This implies that
-you can simply place initialization code in the body of the script. For example:
+스크립트는 한 번만 실행됩니다. 정의된 콜백 함수
+스크립트에서 여러 번 실행할 수 있지만 스크립트의 가장 바깥쪽 범위의 명령은 한 번만 실행됩니다. 
+이는 스크립트 본문에 초기화 코드를 간단히 배치할 수 있음을 의미합니다. 예를 들어:
 
 ```python
 # Hypothetical script for Python3Operator
@@ -332,6 +328,5 @@ def my_callback_func(data):
 api.set_port_callback("input", my_callback_func)
 ```
 
-Alternatively, you can also place initialization code in a generator
-callback that is registered with `api.add_generator(func)`.
+또는 `api.add_generator(func)`로 등록된 generator 콜백에 초기화 코드를 넣을 수도 있습니다.
 
