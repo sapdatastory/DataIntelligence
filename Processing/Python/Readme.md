@@ -64,7 +64,7 @@ api.set_port_callback(["input1", "input2"], on_input)
 
 api.send(port, data)
 -------------------------
-    Send `data` to outport named `port`.
+    'port'라는 이름의 outport에 'data'를 보냅니다.
 
     Args:
         port (str): Name of output port.
@@ -127,15 +127,15 @@ api.add_generator(gen)
 Timers
 ------
 #### api.add_timer(period, callback)
-    Multiple distinct periodic callbacks can be added. If an already added callback is added again, the old period
-    is replaced by the new `period`. Timers are not preemptive. Thus, the given interval provides only the
-    lower bound of the interval at which the timer function is called.
-    A zero `period` implies that the callback is called as fast as possible.
-    If you want two callbacks with identical behaviour to be run
-    simultaneously then you need to create two different functions with identical body or
-    create a factory function that defines an inner function and returns it. Each time the factory function
-    is called, a new function (with different id) is returned - but with identical behaviour. See the tip
-    in the set_port_callback section to see an example of a factory function.
+    여러 개의 고유한 주기적 콜백을 추가할 수 있습니다. 이미 추가된 콜백이 다시 추가되면 이전 period가 새 'period'로 바뀝니다. 
+    타이머는 선점형이 아닙니다. 따라서 주어진 간격은 타이머 함수가 호출되는 간격의 하한값만 제공합니다.
+    'period'가 0이면 콜백이 최대한 빨리 호출된다는 의미입니다.
+    
+    동일한 동작을 가진 두 개의 콜백을 동시에 실행하려면 
+    
+    동일한 본문을 가진 두 개의 다른 함수를 생성하거나 내부 함수를 정의하고 반환하는 factory 함수를 생성해야 합니다. 
+    factory 함수가 호출될 때마다 새로운 함수(다른 ID를 가진)가 반환되지만 동작은 동일합니다. 
+    factory 함수의 예를 보려면 set_port_callback 섹션의 팁을 참조하세요.
 
     Args:
         callback (func): Callback function to be called every `milliseconds`.
@@ -161,17 +161,17 @@ def t1():
 
 api.add_timer("1s", t1)
 ```
-This example produces value 0,1,2... on port "output" until graph shutdown.
+이 예는 그래프가 종료될 때까지 포트 "output"에서 0,1,2...값을 생성합니다.
 
 #### api.remove_timer(callback)
-    Deregister timer callback.
+    타이머 콜백 등록을 취소합니다.
 
     Args:
         callback (func): Callback function to be removed.
 
 #### api.update_timer(period, callback)
-    Update the period of an existing `callback`.
-    No error is thrown if the callback does not exist.
+    기존 'callback' period를 업데이트합니다.
+    콜백이 존재하지 않으면 오류가 발생하지 않습니다.
 
     Args:
         callback (func): Callback function for which the period is updated. If `callback` is not registered,
