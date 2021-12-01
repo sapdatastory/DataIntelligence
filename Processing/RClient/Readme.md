@@ -65,6 +65,30 @@ ID: tableNameByOutport | Type: array | Default: []
 
 이 섹션에 표시된 table는 operator의 포트에서 직접 사용할 수 있는 유형만 다룹니다. message 데이터 유형의 내부 필드에서 사용할 수 있는 유형과 관련된 자세한 정보는 Go/R Type Equivalences and Conversions 섹션에서 볼 수 있습니다.
 
-```shell
-```
+## API Object Methods
+참고: 다른 callback 실행 중에 새로운 callback을 추가해도 효과가 없습니다. 즉, operator 초기화 후에는 새로운 callback을 추가할 수 없습니다.
+
+### api$setPortCallback(inports, outports, functionName)
+
+### api$addTimer(period, outports, functionName)
+
+### api$setSwitchCallback(inports, outports, functionName)
+
+### api$addShutdownHandler(functionName)
+
+## Log Messages
+
+## Error Messages
+
+## Go/R Type Equivalences and Conversions
+
+## Non-Table-Message Go to R Conversions Examples
+
+## Non-Data-Frame R to Go Conversions
+
+## Docker Tags
+
+
+
+
 
