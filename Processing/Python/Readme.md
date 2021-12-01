@@ -180,7 +180,7 @@ This example produces value 0,1,2... on port "output" until graph shutdown.
 
 Shutdown handlers
 ------
-Shutdown handlers are functions that are executed in the order they are added after the operator stop event.
+Shutdown handler는 operator stop 이벤트 이후에 추가된 순서대로 실행되는 함수입니다.
 ```python
 counter = 0
 
@@ -203,10 +203,10 @@ This example print "shutdown1: 7" and "shutdown2: 7" if 7 values are provided on
 
 Configuration API
 ------
-The `api` object provides the possibility to read configurations defined on the operator´s editor view or added in the configuration panel in the graph´s view. If you define a config named "foo", you
-can access it by calling `api.config.foo`. Configuration field names cannot contain spaces. The "script" and "codelanguage" config fields do not appear in `api.config` as
-they are mandatory configuration parameters and should not be used.
-If you add a json object to a configuration field in the Modeler, it becomes a dictionary in Python.
+`api` 객체는 연산자의 에디터 view에 정의되거나 그래프 view의 구성 패널에 추가된 구성을 읽을 수 있는 가능성을 제공합니다. 
+"foo"라는 구성을 정의하면 `api.config.foo`를 호출하여 액세스할 수 있습니다. 구성 필드 이름에는 공백이 포함될 수 없습니다. 
+"script" 및 "codelanguage" 구성 필드는 필수 구성 매개변수이므로 사용해서는 안 되므로 `api.config`에 표시되지 않습니다.
+Modeler의 구성 필드에 json 객체를 추가하면 Python에서 dictionary가 됩니다.
 
 Logging
 -------
@@ -214,24 +214,22 @@ message를 기록하려면 `api.logger.info("some text")`, `api.logger.debug("")
 
 Error handling
 -----
-You can raise any exception inside the script. As a result, the exception message is logged and the operator is
-terminated - except if the exception is thrown inside a thread different than the script's main thread. In this case,
-you need to call `api.propagate_exception(e)`, where **e** is the exception object to handle it correctly.
+스크립트 내에서 모든 예외를 발생시킬 수 있습니다. 결과적으로 예외 메시지가 기록되고 연산자가 종료됩니다. 예외가 스크립트의 기본 스레드와 다른 스레드 내부에서 throw되는 경우는 예외입니다. 이 경우 `api.propagate_exception(e)`을 호출해야 합니다. 여기서 **e**는 예외 객체를 올바르게 처리하기 위한 예외 객체입니다.
 
-> Note: Do not write to stderr because that could have unintended consequences. Also, do not use `api.logger.fatal` or `api.logger.critical`, otherwise the graph stops. Raise an exception or use `api.propagate_exception` if you want to stop the graph and log the error.
+> 참고: 의도하지 않은 결과를 초래할 수 있으므로 stderr에 쓰지 마십시오. 또한 `api.logger.fatal` 또는 `api.logger.critical`을 사용하지 마십시오. 그렇지 않으면 그래프가 중지됩니다. 그래프를 중지하고 
 
 Halting execution
 -----------------
 
-If you want to halt the graph's execution with an error, follow the instructions from the **Error handling** section.
-To stop the graph without an error, a **Python Operator** can send a signal to a **Graph Terminator Operator**.
+오류로 인해 그래프 실행을 중지하려면 **Error handling** 섹션의 지침을 따르세요.
+오류 없이 그래프를 중지하기 위해 **Python Operator**는 **Graph Terminator Operator**에 신호를 보낼 수 있습니다.
 
-If it is necessary to only stop the operator's execution (without stopping the graph as a whole), you can deregister all its callbacks.
-Notice that stopping a single operator can lead the data flow in the graph as a whole to stop.
+연산자의 실행만 중지해야 하는 경우(그래프 전체를 중지하지 않고) 모든 콜백을 등록 취소할 수 있습니다.
+단일 연산자를 중지하면 그래프의 데이터 흐름이 전체적으로 중지될 수 있습니다.
 
-Note: Be aware that using the Python command `sys.exit(code)` causes only the current Python thread to exit and we do not recommend its use.
-We also do not advise using the Python command `os._exit(code)`, which causes the whole Python process to abort and the graph to stop with an error.
-If you want the whole graph to stop with an error, follow the instructions from the **Error handling** section.
+참고: Python 명령 `sys.exit(code)`를 사용하면 현재 Python 스레드만 종료되므로 사용하지 않는 것이 좋습니다.
+또한 Python 명령 `os._exit(code)`를 사용하지 않는 것이 좋습니다. 이 명령은 전체 Python 프로세스를 중단하고 그래프가 오류와 함께 중지되도록 합니다.
+전체 그래프가 오류로 중지되도록 하려면 **Error handling** 섹션의 지침을 따르세요.
 
 repo_root and subengine_root
 ----------------------------
@@ -307,7 +305,7 @@ Python 연산자 포트 유형을 `python36`으로 설정할 수도 있습니다
 
 FAQ
 ---
-#### Where should I place initialization code for my operator?
+#### Operator의 초기화 코드는 어디에 배치해야 합니까?
 
 스크립트는 한 번만 실행됩니다. 정의된 콜백 함수
 스크립트에서 여러 번 실행할 수 있지만 스크립트의 가장 바깥쪽 범위의 명령은 한 번만 실행됩니다. 
