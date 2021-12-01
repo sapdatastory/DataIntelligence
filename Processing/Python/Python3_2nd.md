@@ -302,20 +302,18 @@ api.set_shutdown(shutdown)
 
 Configuration API
 ------
-The `api` object provides the possibility to read configurations defined on the operator´s editor view or added in the configurations panel in the graph´s view. If you defined a config named "foo" you
-can access it by calling `api.config.foo`. Configuration field names cannot contain spaces. The "script" and "codelanguage" config fields don't appear in `api.config` as
-they are mandatory configuration parameters and should not be used.
-If you filled a config field with a JSON object in the Modeler, its value becomes a dictionary (in Python).
+`api` 객체는 연산자의 편집기 view에 정의되거나 그래프 view의 구성 패널에 추가된 구성을 읽을 수 있는 가능성을 제공합니다. "foo"라는 이름의 구성을 정의했다면 `api.config.foo`를 호출하여 액세스할 수 있습니다. 구성 필드 이름에는 공백이 포함될 수 없습니다. "script" 및 "codelanguage" 구성 필드는 필수 구성 매개변수이므로 사용해서는 안 되므로 `api.config`에 표시되지 않습니다.
+Modeler에서 config 필드를 JSON 객체로 채운 경우 해당 값은 dictionary(Python에서)가 됩니다.
 
-> This operator does not support additional configuration included by the Configuration tab in the Modeler UI. However, configurations can still be included directly in the graph JSON, similar to `errorHandling` and `codelanguage`.
+> 이 연산자는 Modeler UI의 구성 탭에 포함된 추가 구성을 지원하지 않습니다. 그러나 구성은 `errorHandling` 및 `codelanguage`와 유사하게 그래프 JSON에 직접 포함될 수 있습니다.
 
 Logging
 -------
-To log messages, use `api.logger.info("some text")`, `api.logger.debug("")`, `api.logger.warn("")`, or `api.logger.error("")`.
+message를 기록하려면 `api.logger.info("some text")`, `api.logger.debug("")`, `api.logger.warn("")` 또는 `api.logger.error("")`를 사용하세요.
 
 App Logging
 -----------
-> Each call to these functions results in an HTTP request. This can affect performance.
+> 이러한 함수를 호출할 때마다 HTTP 요청이 발생합니다. 이는 성능에 영향을 줄 수 있습니다.
 #### api.app_log_error(message_code, message, details)
     Log error into Process Logs.
 
@@ -332,13 +330,13 @@ App Logging
 Error Handling
 -----
 
-Given the four `error handling` options, only `propagate to error port` needs further support in the operator script.
-This option triggers messages to the `error` port following the [Error Message format](./service/v1/parse/readme/general/docu/errors/README.md).
-The operator allows customization of `code`, `text`, and `details` by raising `api.OperatorException`.
-If this exception type is not used, the `com.sap.error` message will have default values: `code` as `0`, `text` as `exception message`, and empty `details`.
+4개의 `error handling` 옵션이 주어지면 `propagate to error port`만 연산자 스크립트에서 추가 지원이 필요합니다.
+이 옵션은 [Error Message format](./service/v1/parse/readme/general/docu/errors/README.md)에 따라 '오류' 포트로 메시지를 트리거합니다.
+연산자는 `api.OperatorException`을 발생시켜 `code`, `text` 및 `details`의 사용자 정의를 허용합니다.
+이 예외 유형이 사용되지 않으면 `com.sap.error` 메시지의 기본값은 `0`인 `code`, `예외 메시지`인 `text`, 비어 있는 `details`입니다.
 
 #### api.OperatorException(code, text, details)
-    An exception to customize the `com.sap.error` message when `propagate to error port` is being used. 
+    `propagate to error port`가 사용 중일 때 `com.sap.error` 메시지를 사용자 정의하기 위한 예외입니다.
   
         Args:
             code (int): error code specific to the operator. 
@@ -367,53 +365,53 @@ def on_input(msg_id, header, body):
 api.set_port_callback("input", on_input)
 ```
 
-In general, it is possible to raise any exception inside the script and have it treated according to the `error handling` configuration. 
+일반적으로 스크립트 내에서 모든 예외를 발생시키고 `error handling` 구성에 따라 처리하도록 할 수 있습니다.
 
-If you want the exception to stop the operator, use `api.propagate_exception(e)` in the script, where e is the exception. 
-Note: In case the exception is thrown inside a thread different than the script's main thread (the main thread is the one running the callbacks), the previous mentioned error handling configuration does not work. As a result, the script must rely on using `api.propagate_exception(e)` or sending the exception to the main thread.
+예외가 연산자를 중지하도록 하려면 스크립트에서 `api.propagate_exception(e)`을 사용합니다. 여기서 e는 예외입니다.
+참고: 스크립트의 기본 스레드(기본 스레드는 콜백을 실행하는 스레드)와 다른 스레드 내부에서 예외가 발생하는 경우 이전에 언급한 오류 처리 구성이 작동하지 않습니다. 결과적으로 스크립트는 `api.propagate_exception(e)`을 사용하거나 기본 스레드에 예외를 보내는 데 의존해야 합니다.
 
 Halting Execution
 -----------------
 
-If you want to halt the graph's execution with an error, follow the instructions from the **Error handling** section.
-To stop the graph without an error, a **Python Operator** can send a signal to a **Graph Terminator Operator**.
+오류로 인해 그래프 실행을 중지하려면 **Error handling** 섹션의 지침을 따르세요.
+오류 없이 그래프를 중지하기 위해 **Python Operator**는 **Graph Terminator Operator**에 신호를 보낼 수 있습니다.
 
 
-Be aware that using the Python command `sys.exit(code)` causes only the current Python thread to exit, and we do not recommend its use.
-We also do not advise using the Python command `os._exit(code)`, which causes the whole Python process to abort and the whole graph to stop with an error.
-If you want the whole graph to stop with an error, follow the instructions in the **Error handling** section.
+Python 명령 `sys.exit(code)`를 사용하면 현재 Python 스레드만 종료되므로 사용을 권장하지 않습니다.
+또한 전체 Python 프로세스가 중단되고 전체 그래프가 오류와 함께 중지되는 Python 명령 `os._exit(code)`를 사용하지 않는 것이 좋습니다.
+전체 그래프가 오류로 중지되도록 하려면 **Error handling** 섹션의 지침을 따르세요.
 
 repo_root and subengine_root
 ----------------------------
 
-You can access the repo_root and subengine_root path using api.repo_root and api.subengine_root, respectively.
-Accessing any file or folder under the path `/vrep` is not supported and, while it is still possible to use such path, it is unadvised.
+각각 api.repo_root 및 api.subengine_root를 사용하여 repo_root 및 subengine_root 경로에 액세스할 수 있습니다.
+`/vrep` 경로 아래의 파일이나 폴더에 액세스하는 것은 지원되지 않으며 이러한 경로를 계속 사용할 수는 있지만 권장하지 않습니다.
 
 graph_name, graph_handle and group_id
 -------------------------------------
 
-You can access the graph_name, graph_handle and group_id values using api.graph_name, api.graph_handle and api.group_id, respectively.
+api.graph_name, api.graph_handle 및 api.group_id를 사용하여 graph_name, graph_handle 및 group_id 값에 각각 액세스할 수 있습니다.
 
-* graph_name - identifier of a saved graph. Example: com.sap.dataGenerator
-* graph_handle - unique identifier of the graph instance. It is referred as Runtime Handle in the Modeler. 
-* group_id - unique identifier of the group where the operator is running.
+* graph_name - 저장된 그래프의 식별자. 예: com.sap.dataGenerator
+* graph_handle - 그래프 인스턴스의 고유 식별자. Modeler에서는 런타임 핸들이라고 합니다.
+* group_id - 연산자가 실행 중인 그룹의 고유 식별자입니다.
 
 multiplicity, multiplicity_index
 --------------------------------
 
-Two variables can be accessed to obtain multiplicity-related information api.multiplicity and api.multiplicity_index:
+multiplicity 관련 정보 api.multiplicity 및 api.multiplicity_index를 얻기 위해 두 개의 변수에 액세스할 수 있습니다.
 
-* multiplicity - the multiplicity of the operator's group.
-* multiplicity_index - an integer in the range [0, multiplicity) that can be used to distinguish the multiple instances of this operator.
+* multiplicity - 운영자 그룹의 multiplicity.
+* multiplicity_index - 이 연산자의 여러 인스턴스를 구별하는 데 사용할 수 있는 [0, multiplicity) 범위의 정수입니다.
 
 Inports and Outports
 ----------
 
-You can get the name of the input and output ports for the current operator instance by
-calling the methods `api.get_inport_names()` and `api.get_outport_names()`, respectively.
+각각 `api.get_inport_names()` 및 `api.get_outport_names()` 메소드를 호출하여 
+현재 운영자 인스턴스에 대한 입력 및 출력 포트의 이름을 가져올 수 있습니다.
 
-You can check which inports or outports are connected by using the `api.is_inport_connected` and `api.is_outport_connected`
-dictionaries, which have the name of the port as key and a boolean indicating whether it is connected as value.
+포트 이름을 key로 하고 연결 여부를 나타내는 boolean 값을 값으로 가지는 'api.is_inport_connected' 및 
+'api.is_outport_connected' dictionary을 사용하여 어떤 inport 또는 outport가 연결되어 있는지 확인할 수 있습니다.
 
 Example:
 ```python
@@ -425,20 +423,19 @@ if api.is_outport_connected["outport1"]:
 Data Types
 ------
 
-In the typing system of the Pipeline Engine, a data type is specified by its type and its ID. Its ID can belong to one of three categories:
+파이프라인 엔진의 타이핑 시스템에서 데이터 유형은 유형과 ID로 지정됩니다. ID는 다음 세 가지 범주 중 하나에 속할 수 있습니다.
 
 - `scalar`
 - `structure`
 - `table`
 
-The scalars are the most basic types of Modeler's typing system. Structures are a named and ordered collection of fields. Each field is of type scalar. This collection of data is called a Record. Tables are a collection of many Records, or more precisely, an ordered list of Records.
+scalar는 Modeler의 타이핑 시스템의 가장 기본적인 유형입니다. structure는 명명되고 정렬된 필드 모음입니다. 각 필드는 scalar 유형입니다. 이 데이터 모음을 record라고 합니다. table은 많은 record의 모음이거나 더 정확하게는 record의 정렬된 목록입니다.
 
-Scalar types are based on templates. The templates are a fixed set of type definitions.
+scalar 유형은 템플릿을 기반으로 합니다. 템플릿은 고정된 유형 정의 집합입니다.
 
-New Data Types can be created through the Modeler in the Data Types section. Currently, only custom structures and tables can be defined.
+데이터 유형 섹션의 모델러를 통해 새 데이터 유형을 생성할 수 있습니다. 현재는 사용자 정의 structure와 table만 정의할 수 있습니다.
 
-You can find in the below table the relation between the core scalars, the type templates, and the Python type.
-
+아래 표에서 핵심 scalar, 유형 템플릿 및 Python 유형 간의 관계를 찾을 수 있습니다.
 
 | Core Scalar                | Template     | Python type       | Observation                                               |
 | -------------------------- | ------------ |   --------------- |-----------------------------------------------------------| 
@@ -462,16 +459,16 @@ You can find in the below table the relation between the core scalars, the type 
 | com.sap.core.uint8         | uint8        | int               |                                                           | 
 
 
-> :arrows_counterclockwise: Currently under development. Not available yet.
+> :arrows_counterclockwise: 현재 개발 중입니다. 아직 사용할 수 없습니다.
 
-Note that, in the Modeler, the templates `decimal`, `date`, `time`, and `timestamp` are represented as a `string`. As a convenience for you when retrieving one of the following types, the object returned is converted to a high-level class for easier manipulation.
+Modeler에서 `decimal`, `date`, `time` 및 `timestamp` 템플릿은 `string`으로 표시됩니다. 다음 유형 중 하나를 검색할 때 사용자의 편의를 위해 반환된 개체는 더 쉽게 조작할 수 있도록 상위 수준 클래스로 변환됩니다.
 
-It is also possible to retrieve the raw string representation of the object by calling `.get_raw()`.
+`.get_raw()`를 호출하여 객체의 원시 문자열 표현을 검색하는 것도 가능합니다.
 
 Data Type Reference
 -----
 
-To refer to data types, the API exposes the class `api.DataTypeReference`. It can be used to hold the type and ID in a single object.
+API는 데이터 유형을 참조하기 위해 `api.DataTypeReference` 클래스를 노출합니다. 단일 개체에 유형과 ID를 보관하는 데 사용할 수 있습니다.
 #### api.DataTypeReference(type, ID)
     Args:
         type (str): "scalar", "structure" or "table"
