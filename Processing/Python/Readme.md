@@ -1,20 +1,19 @@
 Python3 Operator
 ===============
 
-With the Python3 operator you can define a script that offers some convenience functions provided by the `api` object. As an example, you can set up a callback that is called for every new data received in the "datain" port by writing `api.set_port_callback("datain", callback_name)`.
-Other conveniences provided by `api` are described below.
+Python3 연산자를 사용하면 `api` 객체가 제공하는 몇 가지 편의 기능을 제공하는 스크립트를 정의할 수 있습니다. 예를 들어 `api.set_port_callback("datain", callback_name)`을 작성하여 "datain" 포트에 수신된 모든 새 데이터에 대해 호출되는 콜백을 설정할 수 있습니다.
+`api`가 제공하는 기타 편의 사항은 다음과 같습니다.
 
-An extension of the Python3 Operator can be created directly in the Modeler by choosing the **Repository** tab.
+Python3 연산자의 확장은 **Repository** 탭을 선택하여 Modeler에서 직접 생성할 수 있습니다.
 
-> Note: This operator runs on python 3.6.
+> 참고: 이 연산자는 python 3.6에서 실행됩니다.
 
-> Note: each callback registered in the script runs in a **different thread**.
-> As the script developer, you should handle potential concurrency issues such as race
-> conditions. You can, for instance, use primitives from the
-> Python [threading module](https://docs.python.org/3/library/threading.html)
-> to get protected against said issues.
+> 참고: 스크립트에 등록된 각 콜백은 **different thread** 에서 실행됩니다.
+> 스크립트 개발자는 경쟁 조건과 같은 잠재적인 동시성 문제를 처리해야 합니다. 
+> 예를 들어 Python [threading module](https://docs.python.org/3/library/threading.html)의 
+> 기본 요소를 사용하여 해당 문제로부터 보호할 수 있습니다.
 
-**Warning**: In the next version, 2113, Python 3.6 will be updated to 3.9. APIs provided by the operator do not require changes. The main incompatible change is the addition of `async` and `await` as reserved words and their use with the asyncio module. The complete list of new features can be found at:
+**경고**: 다음 버전인 2113에서는 Python 3.6이 3.9로 업데이트됩니다. 연산자가 제공하는 API는 변경할 필요가 없습니다. 주요 호환되지 않는 변경 사항은 `async` 및 `await`를 예약어로 추가하고 asyncio 모듈과 함께 사용하는 것입니다. 새로운 기능의 전체 목록은 다음에서 찾을 수 있습니다.
 
 - https://docs.python.org/3/whatsnew/3.7.html
 
@@ -22,7 +21,7 @@ An extension of the Python3 Operator can be created directly in the Modeler by c
 
 - https://docs.python.org/3/whatsnew/3.9.html
 
-However, packages used by the operator can include breaking changes. The package change of versions are: tornado `5.0.2` to `6.1.0` and pandas `1.0.3` to `1.2.5`. The Tornado list of news can be found at https://github.com/tornadoweb/tornado/blob/stable/docs/releases/v6.0.0.rst. These are not expected to affect operators. Pandas has no breaking changes. Deprecated features generate a warning, though. The list can be found at https://pandas.pydata.org/pandas-docs/dev/whatsnew/v1.2.0.html. Keep in mind some of the used packages with 3.6 can require new versions to work with 3.9.
+그러나 연산자가 사용하는 패키지에는 주요 변경 사항이 포함될 수 있습니다. 버전의 패키지 변경은 tornado `5.0.2`에서 `6.1.0`으로, pandas `1.0.3`에서 `1.2.5`로 입니다. Tornado 목록은 https://github.com/tornadoweb/tornado/blob/stable/docs/releases/v6.0.0.rst에서 확인할 수 있습니다. 이는 연산자에게 영향을 미치지 않을 것으로 예상됩니다. Pandas에는 주요 변경 사항이 없습니다. 그러나 사용되지 않는 기능은 경고를 생성합니다. 목록은 https://pandas.pydata.org/pandas-docs/dev/whatsnew/v1.2.0.html에서 찾을 수 있습니다. 3.6에서 사용된 패키지 중 일부는 3.9에서 작동하기 위해 새 버전이 필요할 수 있습니다.
 
 Configuration parameters
 ------------
