@@ -468,7 +468,7 @@ Modeler에서 `decimal`, `date`, `time` 및 `timestamp` 템플릿은 `string`으
 Data Type Reference
 -----
 
-API는 데이터 유형을 참조하기 위해 `api.DataTypeReference` 클래스를 노출합니다. 단일 개체에 유형과 ID를 보관하는 데 사용할 수 있습니다.
+API는 데이터 유형을 참조하기 위해 `api.DataTypeReference` 클래스를 노출(expose)합니다. 단일 개체에 유형과 ID를 보관하는 데 사용할 수 있습니다.
 #### api.DataTypeReference(type, ID)
     Args:
         type (str): "scalar", "structure" or "table"
@@ -482,8 +482,8 @@ int64_type = api.DataTypeReference("scalar", "com.sap.core.int64")
 Type Context
 -----
 
-The type context provides access to methods that interact with the type system, such as checking if a type exists or creating a new dynamic type.
-It can be accessed as an attribute of the API: `api.type_context`.
+type context는 type이 존재하는지 확인하거나 새 dynamic type를 만드는 것과 같이 type system과 상호 작용하는 메서드에 대한 액세스를 제공합니다.
+API의 속성인 `api.type_context`로 액세스할 수 있습니다.
 
 #### api.create_new_table(columns, keys)
     Creates a new dynamic table containing the specified columns. For an example, please check the section "Working with Dynamic Types".
@@ -497,6 +497,13 @@ It can be accessed as an attribute of the API: `api.type_context`.
 
 Working with Dynamic Types 
 -----
+
+포트는 정적이거나 동적으로 유형이 지정될 수 있습니다. 정적 포트에는 고정 유형과 ID가 있는 반면 동적 포트는 고정 유형을 유지하지만 모든 유형 ID를 보내거나 받을 수 있습니다. 한 가지 예는 항상 테이블을 출력하지만 각 테이블은 다른 스키마를 가질 수 있는 동적 테이블 출력입니다. 동적 포트의 ID는 `*`입니다.
+
+'with_writer' 인터페이스를 사용하여 스트림을 통해 데이터를 출력하기 위해 동적 포트를 사용할 때 먼저 'publisher.set_dynamic_type'을 호출하여 유형을 동적 포트에 연결해야 합니다.
+'게시' 인터페이스를 사용할 때 데이터에 유형 정보가 포함되어 있지 않으면 엔진이 이를 유추하려고 시도합니다.
+
+다음 예에서는 런타임에 새 테이블 유형을 만들고 작성자를 가져오기 전에 게시자에 연결합니다.
 
 Ports can be either static or dinamically typed. Static ports have a fixed type and ID, while dynamic ports keep the fixed type but allow for any type ID to be sent or received. One example is a dynamic table output that always outputs tables, but each table can have a different schema. The ID of a dynamic port is `*`.
 
