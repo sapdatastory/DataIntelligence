@@ -25,18 +25,18 @@ Output
 
 Creating a JavaScript extension
 -----
-Create an extension of the JavaScript operator and add the desired input and output ports.
-Add your JavaScript snippet as an inline “script” parameter in the extension configuration or put the code into a separate file and use the prefix `file://` to specify the file name.
+* 1. JavaScript 연산자의 확장을 만들고 원하는 입력 및 출력 포트를 추가합니다.
+* 2. 확장 구성에서 JavaScript 스니펫을 인라인 "스크립트" 매개변수로 추가하거나 코드를 별도의 파일에 넣고 `file://` 접두사를 사용하여 파일 이름을 지정합니다.
 
-To create an extension, follow these steps:
+확장 프로그램을 만들려면 다음 단계를 따르세요.
 
-In the Modeler UI, go to the `Operators` tab and click the `+` button to add a new operator extension.
-Select the base operator `Javascript Operator`, give it a name, and click `OK`.
-Add the desired input and output ports.
-Add your JS script either as
-An inline `script` parameter in the extension configuration;
-As a separate file, using the the prefix `file://` to specify the file name in the `script` parameter.
-Save your operator extension.
+* 1. Modeler UI에서 `Operators` 탭으로 이동하여 `+` 버튼을 클릭하여 새 연산자 확장을 추가합니다.
+* 2. 기본 연산자 `Javascript Operator`를 선택하고 이름을 지정한 다음 `OK`을 클릭합니다.
+* 3. 원하는 입력 및 출력 포트를 추가합니다.
+* 4. JS 스크립트를 다음과 같이 추가하십시오.
+** 1. 확장 구성의 인라인 `script` 매개변수.
+** 2. 별도의 파일로 `file://` 접두사를 사용하여 `script` 매개변수에 파일 이름을 지정합니다.
+* 5. 교환원 내선 번호를 저장합니다.
 
 Basic example
 -----
@@ -222,9 +222,11 @@ Handling multiplicity
 Send message to logging app
 -----
 로그 함수를 통해 사용자는 Data Intelligence Logging app에 메시지를 보낼 수 있습니다. 이 기능의 매개변수는 `message`, `severity`, `messageCode`, `details` 입니다. `severity` 매개변수는 선택 사항이며 다음 열거형의 값 중 하나를 사용합니다.
+
 * logSeverity.ERROR
 * logSeverity.INFO
 * logSeverity.WARNING
+
 `messageCode` 및 `details` 매개변수도 선택사항입니다.
 
 함수는 로깅 API 호출이 완료되기를 기다립니다. 클라이언트는 클라이언트 통신에 대해 10초 제한 시간으로 설정됩니다. 오류가 발생하거나 시간 초과에 도달하면 함수에 매개변수로 전달된 것과 동일한 severity와 함께 로그 메시지가 추적 프로그램에 기록됩니다. 다른 오류는 그래프를 죽입니다. Log API는 강력한 보증을 제공해야 합니다.
@@ -237,8 +239,8 @@ $.log("message to log", $.logSeverity.INFO, "10003", "this is a detailed message
 Subgraph (call a graph from js operator)
 -----
 `instanceiateGraph` 함수는 JavaScript 연산자에서 그래프를 호출할 수 있는 가능성을 제공합니다. 그래프에 대한 매개변수와 출력 포트에 대한 핸들러를 제공할 수 있습니다. `instanceiateGraph`는 그래프가 시작되거나 스크립트 실행이 실패할 때 그래프 객체를 반환합니다. 그래프 개체에는 다음과 같은 메서드가 있습니다.
-- wait - 하위 그래프 실행이 완료될 때까지 스크립트 실행을 차단합니다. wait는 그래프 상태를 반환합니다.
-- stop - 하위 그래프 종료를 시작합니다. 그래프 종료가 완료될 때까지 기다리지 않고 반환합니다.
+- `wait` - 하위 그래프 실행이 완료될 때까지 스크립트 실행을 차단합니다. `wait`는 그래프 상태를 반환합니다.
+- `stop` - 하위 그래프 종료를 시작합니다. 그래프 종료가 완료될 때까지 기다리지 않고 반환합니다.
 ```javascript
 $.addGenerator(gen)
 
