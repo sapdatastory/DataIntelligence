@@ -904,7 +904,7 @@ def my_callback_func(data):
 api.set_port_callback("input", my_callback_func)
 ```
 
-또는 `api.set_prestart(func)`로 함수를 등록하여 사전 시작 함수에 초기화 코드를 넣을 수도 있습니다.
+또는 `api.set_prestart(func)`로 함수를 등록하여 prestart 함수에 초기화 코드를 넣을 수도 있습니다.
 
-출력은 연산자 초기화 후에만 가능합니다. 따라서 사전 시작, 타이머 및 포트 콜백 중에만.
+출력은 연산자 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
