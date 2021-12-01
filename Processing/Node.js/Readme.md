@@ -29,7 +29,7 @@ Output
 
 - None
 
-기본 예제
+Examples
 ---
 ```shell
 const SDK = require("@sap/vflow-sub-node-sdk")
