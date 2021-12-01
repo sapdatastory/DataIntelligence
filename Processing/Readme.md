@@ -1,6 +1,6 @@
-# Data Processing
-
-SAP Data Intelligence의 Data Processing 관련한 Operator와 Pipeline 정보를 공유합니다.<br>
+Data Processing
+===
+SAP Data Intelligence의 Operator의 사용 정보를 제공합니다.<br>
 
 - **[Python Operator](Python/)**
 - **[Jupyter Operator](Jupyter/)**
