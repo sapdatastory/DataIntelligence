@@ -336,7 +336,3 @@ api.set_port_callback("input", my_callback_func)
 Alternatively, you can also place initialization code in a generator
 callback that is registered with `api.add_generator(func)`.
 
-<br>
-<div class="footer">
-   &copy; 2020 SAP SE or an SAP affiliate company. All rights reserved.
-</div>
