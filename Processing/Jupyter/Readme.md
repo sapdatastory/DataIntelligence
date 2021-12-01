@@ -156,18 +156,54 @@ Predefined Functions
 짧은 설명을 보려면 함수 이름(코드 셀 내부) 위에 있는 `Shift-Tab`을 누르고 전체 설명을 보려면 `Shift-Tab-Tab`을 눌러 Jupyter 노트북 UI 내에서 언제든지 함수 문서에 액세스할 수 있습니다.
 
 #### api.send(port, data)
-
+    Writes the data to the specified operator output port. Be careful with the correspondence between the Python data object and the Modeler port type.
+    Args:
+        port (str): operator's output port name
+        data: data object to send
+        
 #### api.get_config()
+    Returns the Jupyter operator's configuration object
+    Args:
+        None
+    Returns:
+        config(dict): configuration object
 
 #### api.add_dependency(package_name)
+    This method tries to install a Python package using pip. If the installation fails, an exception is raised.
+
+    Args:
+        package_name (str): Name of the package to be installed with pip.
 
 #### api.try_port_callback(ports, callback)
-
+    This method executes the callback once with the data retrieved from the specified input ports. The callback is called only when there are messages available in all input ports.
+    * Note that this function is available only in interactive mode.
+    Args:
+        ports (str|list[str]): input ports to be tested with the callback. `ports` can be a list of strings with the name of each port to be associated, or a string if you want to associate the callback with a single port.
+        callback (func[...]): a callback function with the same number of arguments as elements in `ports`. The arguments are passed to `callback` in the same order as their corresponding ports in the `ports` argument. 
+    
 #### api.set_port_callback(ports, callback)
-
+    This method associates the input ports with the callback. The callback is called only when there are messages available in all input ports. If this method is called multiple times for the same group of ports, then the previous callback is overwritten by the provided one.
+    Different ports group cannot overlap. For example, a port can be only associated with one callback at a time.
+    Args:
+        ports (str|list[str]): input ports to be associated with the callback. `ports` can be a list of strings with the name of each port to be associated, or a string if you want to associate the callback with a single port.
+        callback (func[...]): a callback function with the same number of arguments as elements in `ports` or a variable-length argument. The arguments are passed to `callback` in the same order as their corresponding ports in the `ports` argument.
+    
 #### api.remove_port_callback(callback)
+    Unregister the callback function. If the function is not registered, the method exits quietly.
 
+    Args:
+        callback (func[...]): callback function to be removed.
+    
 Correspondence between Modeler types and Python types
 -----
 Modeler 유형은 운영자 포트에서 허용되는 유형입니다. 예를 들어 `blob` 유형의 입력 포트가 있는 경우 포트 콜백에 대한 인수로 수신할 Python 객체는 `bytes` 유형입니다. 이제 연산자의 출력 포트에 `string` 유형이 있으면 출력 포트에 `str` 유형의 Python 객체를 보내야 합니다.
+| Modeler | Python3     |
+|---------|-------------|
+| string  | str         |
+| blob    | bytes       |
+| int64   | int         |
+| uint64  | int         |
+| float64 | float       |
+| byte    | int         |
+| message | Message     |
 
