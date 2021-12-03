@@ -3,16 +3,34 @@
 SAP Data Intelligence에서 제공하는 1세대 Operator(연산자)에 대한 정보를 제공합니다.<br>
 
 * **ABAP**
-    - **[Read Data From SAP System](ABAP/ReadDataFromSAPSystem.md)**
+
+* **Connectivity**
 
 * **Connectivity (by Flowagent)**
     - **[Flowagent SQL Executor](Connectivity/FlowagentSQLExecutor.md)**
 
+* **Converter**
+
+* **Data Quality**
+
+* **Data Workflows**
+
 * **Files**
-    - **[Binary File Producer](Files/BinaryFileProducer.md)**
+
+* **Hadoop and Spark**
+
+* **Jupyter Operator**
+    - **[Jupyter](Jupyter/Jupyter.md)**
+
+* **Multiplexer**
 
 * **Processing**
+    - **[Node.js](Processing/Nodejs.md)**
+    - **[JavaScript](Processing/JavaScript.md)**
     - **[Python3](Processing/Python3.md)**
+    - **[R Client](Processing/RClient.md)**
+
+* **Remote DataFlow**
 
 * **SAP HANA**
     - **[Initialize HANA Table](HANA/InitializeHANATable.md)**
@@ -20,7 +38,11 @@ SAP Data Intelligence에서 제공하는 1세대 Operator(연산자)에 대한 �
     - **[Run HANA SQL](HANA/RunHANASQL.md)**
     - **[Write HANA Table](HANA/WriteHANATable.md)**
 
-* **Structured Data Operator**
+* **SAP Machine Learning Core Operators**
+
+* **SAP Machine Learning Functional Services**
+
+* **Structured Data Operators**
     - **[SAP Application Consumer](StructuredData/SAPApplicationConsumer.md)**
     - **[SAP Application Producer](StructuredData/SAPApplicationProducer.md)**
     - **[SQL Consumer](StructuredData/SQLConsumer.md)**
