@@ -7,7 +7,6 @@ SAP Data Intelligence에서 제공하는 1세대 Operator(연산자)에 대한 �
 * **Connectivity**
 
 * **Connectivity (by Flowagent)**
-    - **[Flowagent SQL Executor](Connectivity/FlowagentSQLExecutor.md)**
 
 * **Converter**
 
@@ -33,27 +32,26 @@ SAP Data Intelligence에서 제공하는 1세대 Operator(연산자)에 대한 �
 * **Remote DataFlow**
 
 * **SAP HANA**
-    - **[Initialize HANA Table](HANA/InitializeHANATable.md)**
-    - **[Read HANA Table](HANA/ReadHANATable.md)**
-    - **[Run HANA SQL](HANA/RunHANASQL.md)**
-    - **[Write HANA Table](HANA/WriteHANATable.md)**
+    - **[Initialize HANA Table]**
+    - **[Read HANA Table]**
+    - **[Run HANA SQL]**
+    - **[Write HANA Table]**
 
 * **SAP Machine Learning Core Operators**
 
 * **SAP Machine Learning Functional Services**
 
 * **Structured Data Operators**
-    - **[SAP Application Consumer](StructuredData/SAPApplicationConsumer.md)**
-    - **[SAP Application Producer](StructuredData/SAPApplicationProducer.md)**
-    - **[SQL Consumer](StructuredData/SQLConsumer.md)**
-    - **[Table Consumer](StructuredData/TableConsumer.md)**
-    - **[Table Producer](StructuredData/TableProducer.md)**
-    - **[Data Transform](StructuredData/DataTransform.md)**
-    - **[Structured File Consumer](StructuredData/StructuredFileConsumer.md)**
-    - **[Structured File Producer](StructuredData/StructuredFileProducer.md)**
+    - **[SAP Application Consumer]**
+    - **[SAP Application Producer]**
+    - **[SQL Consumer]**
+    - **[Table Consumer]**
+    - **[Table Producer]**
+    - **[Data Transform]**
+    - **[Structured File Consumer]**
+    - **[Structured File Producer]**
 
 * **Utilities**
-    - **[Binary to Table](Utilities/BinarytoTable.md)**
-    - **[Table to Binary](Utilities/TabletoBinary.md)**
+
 
 
