@@ -1,4 +1,4 @@
-# Table to Binary
+# `Table to Binary` Operator
 
 Encodes table data in a serialization data format.
 
