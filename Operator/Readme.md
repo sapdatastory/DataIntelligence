@@ -1,6 +1,6 @@
-Operator 2세대
+2세대 Operator
 ===
-SAP Data Intelligence에서 제공하는 다양한 Operator(연산자) 2세대에 대한 사용 정보를 제공합니다.<br>
+SAP Data Intelligence에서 제공하는 2세대 Operator(연산자)에 대한 정보를 제공합니다.<br>
 
 * **ABAP**
     - **[Read Data From SAP System](ABAP/ReadDataFromSAPSystem.md)**
