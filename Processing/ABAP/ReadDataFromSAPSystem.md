@@ -1,4 +1,4 @@
-Read Data From SAP System
+`Read Data From SAP System` Operator
 =======
 com.sap.abap.reader
 
@@ -7,12 +7,8 @@ com.sap.abap.reader
 **Output**<br>
 --None--
 
-Read Data From SAP System
-=======
-
 `Read Data From SAP System` 연산자를 사용하여 ABAP 시스템에서 데이터를 읽을 수 있습니다. 
 `Read Data From SAP System` 연산자는 원격 ABAP 시스템에서 선택한 연산자(Operator)에 동적으로 적응합니다.
-
 
 Note
 =======
