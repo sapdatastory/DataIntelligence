@@ -1,4 +1,4 @@
-# Binary to Table
+# `Binary to Table` Operator
 
 Decodes serialized data and provides the data in table format.
 
