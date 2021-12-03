@@ -31,7 +31,7 @@ SAP Data Intelligence에서 제공하는 다양한 Operator(연산자) 2세대�
     - **[Structured File Producer](StructuredData/StructuredFileProducer.md)**
 
 * **Utilities**
-    - **[Binary to Table](Files/BinarytoFile.md)**
-    - **[Table to Binary](Files/FiletoBinary.md)**
+    - **[Binary to Table](Utilities/BinarytoFile.md)**
+    - **[Table to Binary](Utilities/FiletoBinary.md)**
 
 
