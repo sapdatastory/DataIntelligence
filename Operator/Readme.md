@@ -4,12 +4,34 @@ SAP Data Intelligence에서 제공하는 다양한 Operator(연산자) 2세대�
 
 * **ABAP**
     - **[Read Data From SAP System](ABAP/ReadDataFromSAPSystem.md)**
-- **[Jupyter Operator 사용 정보](Jupyter/Readme.md)**
-- **[JavaScript Operator 사용 정보](JavaScript/Readme.md)**
-- **[Node.js Operator 사용 정보](Node.js/Readme.md)**
-- **[RClient Operator 사용 정보](RClient/Readme.md)**
 
-- **[Jupyter Operator 사용 예제](JupyterOperator/Readme.md)**
-- **[Test1 예제]**
-- **[Test2 예제]**
+* **Connectivity (by Flowagent)**
+    - **[Flowagent SQL Executor](Connectivity/FlowagentSQLExecutor.md)**
+
+* **Files**
+    - **[Binary File Producer](Files/BinaryFileProducer.md)**
+
+* **Processing**
+    - **[Python3](Processing/Python3.md)**
+
+* **SAP HANA**
+    - **[Initialize HANA Table](HANA/InitializeHANATable.md)**
+    - **[Read HANA Table](HANA/ReadHANATable.md)**
+    - **[Run HANA SQL](HANA/RunHANASQL.md)**
+    - **[Write HANA Table](HANA/WriteHANATable.md)**
+
+* **Structured Data Operator**
+    - **[SAP Application Consumer](StructuredData/SAPApplicationConsumer.md)**
+    - **[SAP Application Producer](StructuredData/SAPApplicationProducer.md)**
+    - **[SQL Consumer](StructuredData/SQLConsumer.md)**
+    - **[Table Consumer](StructuredData/TableConsumer.md)**
+    - **[Table Producer](StructuredData/TableProducer.md)**
+    - **[Data Transform](StructuredData/DataTransform.md)**
+    - **[Structured File Consumer](StructuredData/StructuredFileConsumer.md)**
+    - **[Structured File Producer](StructuredData/StructuredFileProducer.md)**
+
+* **Utilities**
+    - **[Binary to Table](Files/BinarytoFile.md)**
+    - **[Table to Binary](Files/FiletoBinary.md)**
+
 
