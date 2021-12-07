@@ -13,7 +13,7 @@ Configuration Parameters
 * **script** (mandatory): Inline script to be executed. If script starts with "file://", then the script file is executed.  
   ID: `script` | Type: `string` | Default: `""`
   
-* **Error handling** (mandatory): Defines how the operator treats exceptions during `prestart`, `port callbacks`, and `timer callbacks`. During `shutdown`, an exception will terminate the graph if this has not been triggered before. More details at the `Error Handling` section. 
+* **Error handling** (mandatory): Defines how the operator treats exceptions during `prestart`, `port callbacks`, and `timer callbacks`. During `shutdown`, an exception will terminate the graph if this has not been triggered before. More details at the `Error Handling` section.  
   ID: `errorHandling` | Type: `string` | Default: `"terminate on error"`
   
   Accepted values:
