@@ -3,26 +3,26 @@
 
 Python3 연산자를 사용할 때 `api` 객체가 제공하는 몇 가지 편의 기능을 제공하는 스크립트를 정의할 수 있습니다. 예를 들어 `api.set_port_callback("datain", callback_name)`을 작성하여 "datain" 포트에 새 데이터를 수신할 때 호출되는 콜백을 설정할 수 있습니다.
 
-Python 3 연산자를 확장하는 연산자는 Modeler의 **Repository** 탭에서 직접 생성할 수 있습니다.
+Python3 연산자를 확장하는 연산자는 Modeler의 **Repository** 탭에서 직접 생성할 수 있습니다.
 
 > 이 연산자는 Python 3.6에서 실행됩니다.
 
 Configuration Parameters
 ------------
 
-* **script** (mandatory): Inline script to be executed. If script starts with "file://", then the script file is executed.  
+* **script** (mandatory): 실행할 인라인 스크립트. 스크립트가 "file://"로 시작하면 스크립트 파일이 실행됩니다.  
   ID: `script` | Type: `string` | Default: `""`
   
-* **Error handling** (mandatory): Defines how the operator treats exceptions during `prestart`, `port callbacks`, and `timer callbacks`. During `shutdown`, an exception will terminate the graph if this has not been triggered before. More details at the `Error Handling` section.  
+* **Error handling** (mandatory): 연산자가 `prestart`, `port callback` 및 `timer callback` 중에 예외를 처리하는 방법을 정의합니다. `shutdown` 동안 예외가 이전에 트리거되지 않은 경우 그래프를 종료합니다. `Error Handling` 섹션에서 자세한 내용을 확인하세요.  
   ID: `errorHandling` | Type: `string` | Default: `"terminate on error"`
   
   Accepted values:
 
-  * *terminate on error*: exceptions terminate the graph.
-  * *log and ignore*: exceptions are logged and the operator continues running.
-  * *propagate to error port*: exceptions are sent to the error port and the operator continues running. It assumes a port called `error` of type `structure` and `com.sap.error` has been created.
-    It is possible to create a custom exception named `OperatorException` to provide more details like: `code`, `text`, `details`.
-  * *retry*: exceptions are communicated through response callback. More details at the `Error Handling` section. 
+  * *terminate on error*: 예외는 그래프를 종료합니다.
+  * *log and ignore*: 예외가 기록되고 연산자는 계속 실행됩니다.
+  * *propagate to error port*: 예외는 error 포트로 전송되고 연산자는 계속 실행됩니다. `structure` 및 `com.sap.error` 유형의 `error`라는 포트가 생성되었다고 가정합니다.
+    `code`, `text`, `details`와 같은 자세한 정보를 제공하기 위해 `OperatorException`이라는 사용자 정의 예외를 생성할 수 있습니다.
+  * *retry*: 예외는 응답 콜백을 통해 전달됩니다. `Error Handling` 섹션에서 자세한 내용을 확인하세요.
 
 Input
 ------------
@@ -34,7 +34,7 @@ Output
 
 Basic Examples
 ------
-이 snipphet은 이름이 "input"이고 유형(scalar, "com.sap.core.int64")인 포트에서 들어오는 모든 message를 계산하고 "output"이라는 포트와 유형(scalar, "com.sap.core.txt")에 개수를 씁니다. int64").
+이 snipphet은 이름이 "input"이고 유형(scalar, "com.sap.core.int64")인 포트에서 들어오는 모든 message를 계산하고 "output"이라는 포트와 유형(scalar, "com.sap.core.int64")에 개수를 씁니다.
 
 ```python
 counter = 0
@@ -51,7 +51,7 @@ api.set_port_callback("input", on_input)
 
 api.outputs.`port`.publish(data, header=None, response_callback=None)
 ----------------------------------------
-    Publish `data` and `header` to outport named `port`.
+    `data`와 `header`를 `port`라는 이름의 output에 게시합니다.
 
 > 연산자 초기화 후에만 출력이 가능합니다. 따라서 prestart, timer, callback 중에만.
 
@@ -92,7 +92,7 @@ api.set_port_callback("input", on_input)
 
 api.outputs.`port`.publish(binary_data, n, header=None, response_callback=None)
 ----------------------------------------
-    Publish the first `n` bytes from `data` (assumed to be a file object) and `header` to outport named `port`. If `n` is -1, a parallel stream connection is created and data is transfered through it.
+    `data`(파일 객체로 가정)와 `header`의 첫 번째 `n` 바이트를 `port`라는 이름의 아웃포트에 게시합니다. `n`이 -1이면 병렬 스트림 연결이 생성되고 이를 통해 데이터가 전송됩니다.
 
 > 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
@@ -131,8 +131,8 @@ api.set_port_callback("input", on_input, {}, custom_response_callback)
 
 api.outputs.`port`.with_writer(header=None, response_callback=None)
 ---------------------------------------
-    Create a stream writer to outport named `port`.
-    In the case of a dynamic port, api.outputs.port.set_dynamic_type should be previously called. For more details, see section "Working with Dynamic Types".
+    `port`라는 이름으로 출력할 stream writer를 만듭니다.
+    동적 포트의 경우 api.outputs.port.set_dynamic_type을 미리 호출해야 합니다. 자세한 내용은 "Working with Dynamic Types" 섹션을 참조하십시오.
 
 > 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
@@ -168,7 +168,7 @@ api.set_port_callback("input", on_input)
 
 api.outputs.`port`.publish(None, header=headers, response_callback=None)
 ----------------------------------------
-    Publish `none` type, which only contains headers and no body data, to outport named `port`.
+    header만 포함하고 body 데이터는 포함하지 않는 `none` 유형을 `port`라는 이름의 output에 게시합니다.
 
 > 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
@@ -408,10 +408,10 @@ Inports and Outports
 ----------
 
 각각 `api.get_inport_names()` 및 `api.get_outport_names()` 메소드를 호출하여 
-현재 운영자 인스턴스에 대한 입력 및 출력 포트의 이름을 가져올 수 있습니다.
+현재 오퍼레이터 인스턴스에 대한 입력 및 출력 포트의 이름을 가져올 수 있습니다.
 
-포트 이름을 key로 하고 연결 여부를 나타내는 boolean 값을 값으로 가지는 'api.is_inport_connected' 및 
-'api.is_outport_connected' dictionary을 사용하여 어떤 inport 또는 outport가 연결되어 있는지 확인할 수 있습니다.
+포트 이름을 key로 하고 연결 여부를 나타내는 boolean 값을 값으로 가지는 `api.is_inport_connected` 및 
+`api.is_outport_connected` dictionary을 사용하여 어떤 inport 또는 outport가 연결되어 있는지 확인할 수 있습니다.
 
 Example:
 ```python
@@ -485,7 +485,7 @@ Type Context
 type context는 type이 존재하는지 확인하거나 새 dynamic type를 만드는 것과 같이 type system과 상호 작용하는 메서드에 대한 액세스를 제공합니다.
 API의 속성인 `api.type_context`로 액세스할 수 있습니다.
 
-#### api.create_new_table(columns, keys)
+#### api.type_context.create_new_table(columns, keys)
     Creates a new dynamic table containing the specified columns. For an example, please check the section "Working with Dynamic Types".
 
     Args:
@@ -498,7 +498,7 @@ API의 속성인 `api.type_context`로 액세스할 수 있습니다.
 Working with Dynamic Types 
 -----
 
-포트는 정적이거나 동적으로 유형이 지정될 수 있습니다. 정적 포트에는 고정 유형과 ID가 있는 반면 동적 포트는 고정 유형을 유지하지만 모든 유형 ID를 보내거나 받을 수 있습니다. 한 가지 예는 항상 테이블을 출력하지만 각 테이블은 다른 스키마를 가질 수 있는 동적 테이블 출력입니다. 동적 포트의 ID는 `*`입니다.
+포트는 정적 또는 동적으로 유형이 지정될 수 있습니다. 정적 포트에는 고정 유형과 ID가 있는 반면 동적 포트는 고정 유형을 유지하지만 모든 유형 ID를 보내거나 받을 수 있습니다. 한 가지 예는 항상 테이블을 출력하지만 각 테이블은 다른 스키마를 가질 수 있는 동적 테이블 출력입니다. 동적 포트의 ID는 `*`입니다.
 
 `with_writer` 인터페이스를 사용하여 스트림을 통해 데이터를 출력하기 위해 동적 포트를 사용할 때 먼저 `publisher.set_dynamic_type`을 호출하여 유형을 동적 포트에 연결해야 합니다.
 `publish` 인터페이스를 사용할 때 데이터에 유형 정보가 포함되어 있지 않으면 엔진이 이를 유추하려고 시도합니다.
