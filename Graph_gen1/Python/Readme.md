@@ -2,7 +2,7 @@
 
 ## 1. File to Python 처리
 #### 1.1 Read File Operator : message.file - message Type
-![](/dataconversion/images/1.FilePython.png)<br>
+![](images/1.FilePython.png)<br>
 Read File --> From File --> Python3 --> To File --> Write File --> Graph Terminator
 
     from io import StringIO
@@ -21,7 +21,7 @@ Read File --> From File --> Python3 --> To File --> Write File --> Graph Termina
     api.set_port_callback("input1", on_input)
 
 #### 1.2 Read File Operator : message.file - string Data Type
-![](/dataconversion/images/2.FilePython.png)<br>
+![](images/2.FilePython.png)<br>
 Read File --> ToString Coverter --> Python3 --> To File --> Write File --> Graph Terminator
 
     from io import StringIO
@@ -40,7 +40,7 @@ Read File --> ToString Coverter --> Python3 --> To File --> Write File --> Graph
     api.set_port_callback("input1", on_input)
 
 #### 1.3 Structured File Consumer Operator : table - message Type
-![](/dataconversion/images/0.FilePython.png)<br>
+![](images/0.FilePython.png)<br>
 Structured File Consumer --> Table To Message Converter --> Python3 --> To File --> Write File --> Graph Terminator<br>
 Table To Message Converter에서 string 데이터 타입 변환 중 오류 발생됨
 
@@ -62,7 +62,7 @@ Table To Message Converter에서 string 데이터 타입 변환 중 오류 발�
 ## 2. HANA to Python 처리
 
 #### 2.1 Table Consumer Operator : table - message Type
-![](/dataconversion/images/3.HanaPython.png)<br>
+![](images/3.HanaPython.png)<br>
 Table Consumer --> Table To Message Converter --> Python3 --> To File --> Write File --> Graph Terminator
 
     from io import StringIO
@@ -81,7 +81,7 @@ Table Consumer --> Table To Message Converter --> Python3 --> To File --> Write 
     api.set_port_callback("input1", on_input)
 
 #### 2.2 HANA Client Operator : message - message Type
-![](/dataconversion/images/4.HanaPython.png)<br>
+![](images/4.HanaPython.png)<br>
 Constant Generator --> HANA Client --> Python3 --> To File --> Write File --> Graph Terminator
 
     from io import StringIO
@@ -100,7 +100,7 @@ Constant Generator --> HANA Client --> Python3 --> To File --> Write File --> Gr
     api.set_port_callback("input1", on_input)
 
 #### HANA Client Operator : message - blob - string Type
-![](/dataconversion/images/7.HanaPython.png)<br>
+![](images/7.HanaPython.png)<br>
 Constant Generator --> HANA Client --> ToBlob Converter --> Format Converter --> ToString Converter --> Python3 --> To File --> Write File --> Graph Terminator
 
     from io import StringIO
@@ -120,8 +120,8 @@ Constant Generator --> HANA Client --> ToBlob Converter --> Format Converter -->
 
 
 #### 2.3 Run HANA SQL Operator : message.table - message Type
-![](/dataconversion/images/5.HanaPython.png)<br>
-![](/dataconversion/images/5.HanaPython_Error.png)<br>
+![](images/5.HanaPython.png)<br>
+![](images/5.HanaPython_Error.png)<br>
 Constant Generator --> Run HANA SQL --> ToMessage Converter --> Python3 --> To File --> Write File --> Graph Terminator<br>
 오류 발생됨
 
@@ -144,7 +144,7 @@ import pandas as pd
         api.set_port_callback("input1", on_input)
 
 #### 2.4 Run HANA SQL Operator : message.table - string Type
-![](/dataconversion/images/6.HanaPython.png)<br>
+![](images/6.HanaPython.png)<br>
 Constant Generator --> Run HANA SQL --> ToString Converter --> Python3 --> To File --> Write File --> Graph Terminator<br>
 오류 발생됨 - 데이터 출력 형식이 
 
@@ -165,7 +165,7 @@ Constant Generator --> Run HANA SQL --> ToString Converter --> Python3 --> To Fi
 
 ## 3. Python to HANA 처리
 #### 3.1 HANA Client Operator : message - message Type
-![](/dataconversion/images/1.PythonHANA.png)<br>
+![](images/1.PythonHANA.png)<br>
 Read File --> From File --> Python3 --> HANA Client --> Graph Terminator
 
     from io import StringIO
@@ -184,7 +184,7 @@ Read File --> From File --> Python3 --> HANA Client --> Graph Terminator
     api.set_port_callback("input1", on_input)
 
 #### 3.2 Write HANA SQL Operator : message - message.table Type
-![](/dataconversion/images/2.PythonHANA.png)<br>
+![](images/2.PythonHANA.png)<br>
 Read File --> From File --> Python3 --> Write HANA Table --> Graph Terminator<br>
 오류 발생됨
 
