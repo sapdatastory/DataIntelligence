@@ -200,8 +200,8 @@ api.set_port_callback("input", on_input)
 
 api.outputs.`port`.set_dynamic_type(dynamic_type)
 ---------------------------------------
-    Associates the dynamic_type received to the publisher. This function should be called before `with_writer` when using a dynamic port.
-    It will result in an exception if the port is statically typed. 
+    수신된 dynamic_type을 게시자에 연결합니다. 이 함수는 동적 포트를 사용할 때 `with_writer` 전에 호출되어야 합니다.
+     포트가 정적으로 입력된 경우 예외가 발생합니다. 
 
     Args:
         dynamic_type (api.DataTypeReference): dynamic type to be associated with the current publisher
@@ -213,8 +213,7 @@ api.outputs.`port`.set_dynamic_type(dynamic_type)
 Port Callbacks
 --------------
 #### api.set_port_callback(port, callback)
-    Associate input `port` to the `callback`. The `callback` is called only when there is
-    a message available in `port`.
+    입력 `port`를 `callback`에 연결합니다. `callback`은 `port`에 사용 가능한 메시지가 있을 때만 호출됩니다.
 
     Args:
         port (str): input port to be associated with the callback. 
@@ -223,7 +222,7 @@ Port Callbacks
 Prestart
 --------
 #### api.set_prestart(callback)
-    Set a `callback` function to be executed before the event processing loop starts.
+    이벤트 처리 루프가 시작되기 전에 실행할 `callback` 함수를 설정합니다.
 
     Args:
         callback (func[None]): Callback executed before any port and timer callbacks are executed.
@@ -250,7 +249,7 @@ api.set_prestart(prestart_function)
 Timers
 ------
 #### api.add_timer(callback)
-    Multiple distinct periodic callbacks can be added. Timers are not preemptive. Thus, a set interval only provides the lower bound of the interval at which the timer function is called.
+    여러 개의 고유한 주기적 콜백을 추가할 수 있습니다. 타이머는 선점형이 아닙니다. 따라서 설정된 간격은 타이머 기능이 호출되는 간격의 하한값만 제공합니다.
 
     Args:
         callback (func[None]->float): Callback function to be called. The following call interval is the return in `seconds`. If the return is `0`, the next call is made as fast as possible. If negative, the timer stops. 
@@ -279,7 +278,7 @@ api.add_timer(t1)
 Shutdown
 --------
 #### api.set_shutdown(callback)
-    Set a `callback` function to be executed after the operator's stop event.
+    오퍼레이터의 정지 이벤트 후에 실행할 `callback` 기능을 설정합니다.
 
     Args:
         callback (func[None]): Callback executed after stopping the operator.
