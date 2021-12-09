@@ -51,7 +51,7 @@ api.set_port_callback("input", on_input)
 
 api.outputs.`port`.publish(data, header=None, response_callback=None)
 ----------------------------------------
-    `data`와 `header`를 `port`라는 이름의 output에 게시합니다.
+    `data`와 `header`를 `port`라는 이름의 outport에 게시합니다.
 
 > 연산자 초기화 후에만 출력이 가능합니다. 따라서 prestart, timer, callback 중에만.
 
@@ -92,7 +92,7 @@ api.set_port_callback("input", on_input)
 
 api.outputs.`port`.publish(binary_data, n, header=None, response_callback=None)
 ----------------------------------------
-    `data`(파일 객체로 가정)와 `header`의 첫 번째 `n` 바이트를 `port`라는 이름의 아웃포트에 게시합니다. `n`이 -1이면 병렬 스트림 연결이 생성되고 이를 통해 데이터가 전송됩니다.
+    `data`(파일 객체로 가정)와 `header`의 첫 번째 `n` 바이트를 `port`라는 이름의 outport에 게시합니다. `n`이 -1이면 병렬 스트림 연결이 생성되고 이를 통해 데이터가 전송됩니다.
 
 > 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
@@ -168,7 +168,7 @@ api.set_port_callback("input", on_input)
 
 api.outputs.`port`.publish(None, header=headers, response_callback=None)
 ----------------------------------------
-    header만 포함하고 body 데이터는 포함하지 않는 `none` 유형을 `port`라는 이름의 output에 게시합니다.
+    header만 포함하고 body 데이터는 포함하지 않는 `none` 유형을 `port`라는 이름의 outport에 게시합니다.
 
 > 출력은 오퍼레이터 초기화 후에만 가능합니다. 따라서 prestart, timer, port callback 중에만.
 
