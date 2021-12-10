@@ -1,6 +1,6 @@
 SAP Data Intelligence 기술 정보
 ===
-SAP Data Intellignece에서 제공하는 다양한 기술 정보와 예제를 제공합니다.
+SAP Data Intellignece의 다양한 기술 정보와 예제를 공유하여 개발자 및 사용자가 Data Intelligence에 대한 지식을 빠르게 습득하도록 합니다.
 
 * **Catalog**
 
