@@ -7,8 +7,8 @@ SAP Data Intellignece에서 제공하는 다양한 기술 정보와 예제를 �
 * **[Operator 2세대](Operator_gen2/Readme.md)**
 * **[Operator 1세대](Operator_gen1/Readme.md)**
 
-* **[Operator 2세대](Operator_gen2/Readme.md)**
-* **[Operator 1세대](Operator_gen1/Readme.md)**
+* **[Graph 2세대](Graph_gen2/Readme.md)**
+* **[Graph 1세대](Graph_gen1/Readme.md)**
 
 * **[Machine Learning](ML/Readme.md)**
 
