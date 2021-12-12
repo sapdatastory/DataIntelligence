@@ -1,11 +1,10 @@
 Python3 Operator 처리 예제
 ===
 
-# 1. File to Python 처리
+# 1. File to File 처리
 None
 
-# 2. HANA to Python 처리
-
+# 2. DB to File 처리
 ## 2.1 Read HANA Table Operator : table <-> table Type
 ![](images/4.HanaPython.png)<br>
 Read HANA Table --> Python3 --> Table to Binary --> Binary File Producer --> Graph Terminator
@@ -61,7 +60,17 @@ Run HANA SQL --> Table to Binary --> Binary File Producer --> Graph Terminator
 select * from DI_DEMO.PRODUCT
 ```
 
-## 2.3 Static to Dynamic Converter : table(Static) <-> table(Dynmic) Type
+# 3. DB to DB 처리
+## 3.1 Read HANA Table Operator : table <-> table
+![](images/4.HanaPython.png)<br>
+Read HANA Table --> Python3 --> Init HANA Table --> Write HANA Table --> Graph Terminator
+
+```python
+
+```
+
+# 4. 기타
+## 4.1 Static to Dynamic Converter : table(Static) <-> table(Dynmic) Type
 ![](images/3.HanaPython.png)<br>
 Python(Static) --> Python(Dynamic) --> Terminal
 
@@ -128,7 +137,7 @@ def on_input(_, iheader, ibody):
 api.set_port_callback("input", on_input)
 ```
 
-## 2.4 Dynamic to Static Converter : table(Dynamic) <-> table(Static) Type
+## 4.2 Dynamic to Static Converter : table(Dynamic) <-> table(Static) Type
 ![](images/3.HanaPython.png)<br>
 Python(Dynamic) --> Python(Static) --> Terminal
 
