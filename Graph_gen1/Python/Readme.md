@@ -221,3 +221,12 @@ def on_input(msg):
 
 api.set_port_callback("input1", on_input)
 ```
+
+# 4. DB to DB 처리
+## 4.1 HANA Client Operator : message <-> message <-> message
+![](images/4.HanaPython.png)<br>
+Constant Generator --> HANA Client --> Python3 --> HANA Client --> Graph Terminator
+
+```python
+
+```

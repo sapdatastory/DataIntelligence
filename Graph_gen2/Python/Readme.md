@@ -4,8 +4,11 @@ Python3 Operator 처리 예제
 # 1. File to File 처리
 None
 
-# 2. DB to File 처리
-## 2.1 Read HANA Table Operator : table <-> table Type
+# 2. File to DB 처리
+None
+
+# 3. DB to File 처리
+## 3.1 Read HANA Table Operator : table <-> table Type
 ![](images/4.HanaPython.png)<br>
 Read HANA Table --> Python3 --> Table to Binary --> Binary File Producer --> Graph Terminator
 
@@ -52,7 +55,7 @@ def forward_table(_, header, ibody):
 api.set_port_callback("input", forward_table)
 ```
 
-## 2.2 Run HANA SQL Operator : table <-> table Type
+## 3.2 Run HANA SQL Operator : table <-> table Type
 ![](images/7.HanaPython.png)<br>
 Run HANA SQL --> Table to Binary --> Binary File Producer --> Graph Terminator
 
@@ -60,8 +63,8 @@ Run HANA SQL --> Table to Binary --> Binary File Producer --> Graph Terminator
 select * from DI_DEMO.PRODUCT
 ```
 
-# 3. DB to DB 처리
-## 3.1 Read HANA Table Operator : table <-> table
+# 4. DB to DB 처리
+## 4.1 Read HANA Table Operator : table <-> table
 ![](images/4.HanaPython.png)<br>
 Read HANA Table --> Python3 --> Init HANA Table --> Write HANA Table --> Graph Terminator
 
@@ -69,8 +72,8 @@ Read HANA Table --> Python3 --> Init HANA Table --> Write HANA Table --> Graph T
 
 ```
 
-# 4. 기타
-## 4.1 Static to Dynamic Converter : table(Static) <-> table(Dynmic) Type
+# 5. 기타
+## 5.1 Static to Dynamic Converter : table(Static) <-> table(Dynmic) Type
 ![](images/3.HanaPython.png)<br>
 Python(Static) --> Python(Dynamic) --> Terminal
 
@@ -137,7 +140,7 @@ def on_input(_, iheader, ibody):
 api.set_port_callback("input", on_input)
 ```
 
-## 4.2 Dynamic to Static Converter : table(Dynamic) <-> table(Static) Type
+## 5.2 Dynamic to Static Converter : table(Dynamic) <-> table(Static) Type
 ![](images/3.HanaPython.png)<br>
 Python(Dynamic) --> Python(Static) --> Terminal
 

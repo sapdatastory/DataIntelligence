@@ -119,3 +119,12 @@ function onInput(ctx, msg) {
     $.outData(outMsg);
 }
 ```
+
+# 4. DB to DB 처리
+## 3.1 HANA Client Operator : message <-> message <-> message
+![](images/1.FilePython.png)<br>
+Constant Generator --> HANA Client --> JS --> HANA Client --> Graph Terminator
+
+```javascript
+
+```
