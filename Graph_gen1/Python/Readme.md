@@ -67,7 +67,7 @@ api.set_port_callback("input1", on_input)
 ```
 
 # 2. File to DB 처리
-## 2.1 HANA Client Operator : message.file <-> message <-> message
+## 2.1 Read File Operator : message.file <-> message <-> message
 ![](images/1.PythonHANA.png)<br>
 Read File --> From File --> Python3 --> HANA Client --> Graph Terminator
 
@@ -110,7 +110,50 @@ def on_input(msg):
 api.set_port_callback("input1", on_input)
 ```
 
-## 2.3 Table Consumer Operator : table <-> message <-> messae.file
+# 3. DB to File 처리
+## 3.1 HANA Client Operator : message <-> message <-> message.file
+![](images/4.HanaPython.png)<br>
+Constant Generator --> HANA Client --> Python3 --> To File --> Write File --> Graph Terminator
+
+```python
+from io import StringIO
+import pandas as pd
+
+def on_input(msg):
+
+    data = pd.DataFrame(msg.body)
+
+    #df = pd.read_csv(data, sep=',')
+    result = data
+    csv = result.to_csv(sep=',', index=False)
+
+    api.send("output1", api.Message(attributes=msg.attributes, body=csv))
+
+api.set_port_callback("input1", on_input)
+```
+
+## 3.2 HANA Client Operator : message <-> blob <-> string <-> message.file
+![](images/7.HanaPython.png)<br>
+Constant Generator --> HANA Client --> ToBlob Converter --> Format Converter --> ToString Converter --> Python3 --> To File --> Write File --> Graph Terminator
+
+```python
+from io import StringIO
+import pandas as pd
+
+def on_input(msg):
+
+    data = StringIO(msg)
+
+    df = pd.read_csv(data, sep=',')
+    result = df
+    csv = result.to_csv(sep=',', index=False)
+
+    api.send("output1", csv)
+
+api.set_port_callback("input1", on_input)
+```
+
+## 3.3 Table Consumer Operator : table <-> message <-> messae.file
 ![](images/3.HanaPython.png)<br>
 Table Consumer --> Table To Message Converter --> Python3 --> To File --> Write File --> Graph Terminator
 
@@ -161,49 +204,6 @@ api.set_port_callback("input1", on_input)
 ![](images/6.HanaPython.png)<br>
 Constant Generator --> Run HANA SQL --> ToString Converter --> Python3 --> To File --> Write File --> Graph Terminator<br>
 오류 발생됨 - 데이터 출력 형식 틀림
-
-```python
-from io import StringIO
-import pandas as pd
-
-def on_input(msg):
-
-    data = StringIO(msg)
-
-    df = pd.read_csv(data, sep=',')
-    result = df
-    csv = result.to_csv(sep=',', index=False)
-
-    api.send("output1", csv)
-
-api.set_port_callback("input1", on_input)
-```
-
-# 3. DB to File 처리
-## 3.1 HANA Client Operator : message <-> message <-> message.file
-![](images/4.HanaPython.png)<br>
-Constant Generator --> HANA Client --> Python3 --> To File --> Write File --> Graph Terminator
-
-```python
-from io import StringIO
-import pandas as pd
-
-def on_input(msg):
-
-    data = pd.DataFrame(msg.body)
-
-    #df = pd.read_csv(data, sep=',')
-    result = data
-    csv = result.to_csv(sep=',', index=False)
-
-    api.send("output1", api.Message(attributes=msg.attributes, body=csv))
-
-api.set_port_callback("input1", on_input)
-```
-
-## 3.2 HANA Client Operator : message <-> blob <-> string <-> message.file
-![](images/7.HanaPython.png)<br>
-Constant Generator --> HANA Client --> ToBlob Converter --> Format Converter --> ToString Converter --> Python3 --> To File --> Write File --> Graph Terminator
 
 ```python
 from io import StringIO
