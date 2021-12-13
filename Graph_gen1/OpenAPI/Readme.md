@@ -384,6 +384,174 @@ function doTick(ctx) {
 }
 ```
 
+```go
+// go language
+package main
+
+import (
+	"encoding/json"
+	"strings"
+)
+
+func main() {}
+
+var (
+	count = 0
+	totalgreeted = 0
+	greeted = make(map[string]int)
+)
+
+var Output func(interface{})
+
+func greetednames() []string {
+	r := make([]string, len(greeted))
+	i := 0
+	for k := range greeted {
+		r[i] = k
+		i++
+	}
+	return r
+}
+
+func decodeJSON(v interface{}) map[string]interface{} {
+	var r map[string]interface{}
+	switch c := v.(type) {
+	case string:
+		json.Unmarshal([]byte(c), &r)
+	case []byte:
+		json.Unmarshal(c, &r)
+	case map[string]interface{}:
+		r = c
+	}
+	return r
+}
+
+func getstring(m map[string]interface{}, k string) string {
+	if v, ok := m[k].(string); ok {
+		return v
+	} else if v, ok := m[k].([]byte); ok {
+		return string(v)
+	}
+	return ""
+}
+func getbytes(m map[string]interface{}, k string) []byte {
+	if v, ok := m[k].(string); ok {
+		return []byte(v)
+	} else if v, ok := m[k].([]byte); ok {
+		return v
+	}
+	return []byte{}
+}
+
+func send(attrs map[string]interface{}, body interface{}) {
+	if (Output == nil) {
+		// ignore
+	} else {
+		// let the subsequent operator decide what to do
+		m := make(map[string]interface{})
+		m["Attributes"] = attrs
+		m["Body"] = body
+		Output(m)
+	}
+}
+
+func publish(ssrid string, to string, body interface{}) {
+	m := make(map[string]interface{})
+	m["Attributes"] = map[string]interface{} {
+		"openapi.header.x-request-key": ssrid,
+		"openapi.responder.publish": to,
+	}
+	m["Body"] = body
+	send(m, nil)
+}
+
+
+func Input(val interface{}) {
+	reqbody := getstring(val.(map[string]interface{}), "Body")
+	reqattrs := val.(map[string]interface{})["Attributes"].(map[string]interface{})
+	respattrs := make(map[string]interface{})
+	var respbody interface{}
+
+	for key, value := range reqattrs {
+		// only copy the headers that won't interfer with the recieving operators
+		if !strings.HasPrefix(key,"openapi.header") || key == "openapi.header.x-request-key" {
+			respattrs[key] = value
+		}
+	}
+
+	// build the response
+	opid := getstring(reqattrs, "openapi.operation_id")
+
+
+	switch (opid) {
+	case "ping":
+		respbody = map[string]interface{}{"pong": count}
+		count++
+		send(respattrs, respbody)
+	case "echo":
+		respbody = map[string]interface{}{"echo": reqbody}
+		send(respattrs, respbody)
+	case "getGreetSummary":
+		respbody = map[string]interface{}{"greeted": greetednames(), "total": totalgreeted}
+		send(respattrs, respbody)
+	case "getGreetStatus":
+		gname := getstring(reqattrs, "openapi.path_params.name")
+		gcount := greeted[gname];
+		respbody = map[string]interface{}{"count": gcount, "name": gname}
+		send(respattrs, respbody)
+	case "greet":
+		gname := getstring(reqattrs, "openapi.path_params.name")
+		ssrid := getstring(reqattrs, "openapi.header.x-request-key")
+		gcount := greeted[gname]
+		gcount++;
+		totalgreeted++
+		greeted[gname] = gcount
+		jsonbody := decodeJSON(reqbody)
+		bodyname := getstring(jsonbody, "name")
+		bodytext := getstring(jsonbody, "text")
+		if bodyname == "" || bodytext == "" {
+			respattrs["message.response.error"] = map[string]interface{}{"message":"Invalid body. Missing name or text", "name":"Error"}
+			send(respattrs, respbody)
+		} else {
+			respbody = map[string]interface{}{"from": gname, "to": bodyname, "text": bodytext};
+			send(respattrs, respbody)
+			if (ssrid != "") {
+				publish(ssrid, bodyname, respbody)
+			}
+		}
+	case "upload":
+		filename := getstring(reqattrs, "openapi.file_params.file#name")
+		filecontent := getbytes(reqattrs, "openapi.file_params.file")
+		// for now, just return the name of the file and the size of the base64 content
+		respbody := map[string]interface{}{"name": filename, "size": len(filecontent)}
+		send(respattrs, respbody)
+	case "subscribe":
+		gname := getstring(reqattrs, "openapi.path_params.name")
+		ssrid := getstring(reqattrs, "openapi.header.x-request-key")
+		// subscribe is enabled when a request uses swaggersocket and has this id.
+		if (ssrid != "") {
+			respattrs["openapi.responder.reuse.name"] = gname
+			respattrs["openapi.responder.reuse.hello"] = map[string]interface{}{"from": gname, "text": "hello", "to": "*"}
+			respattrs["openapi.responder.reuse.bye"] = map[string]interface{}{"from": gname, "text": "bye", "to": "*"}
+		}
+		respbody = []interface{}{}
+		send(respattrs, respbody)
+	case "unsubscribe":
+		sid := getstring(reqattrs,"openapi.path_params.sid")
+		ssrid := getstring(reqattrs,"openapi.header.x-request-key")
+		// unsubscribe is enabled when a request uses swaggersocket and has this id.
+		if (ssrid != "") {
+			respattrs["openapi.responder.release"] = sid
+		}
+		respbody = map[string]interface{}{"greeted": greetednames(), "total": totalgreeted}
+		send(respattrs, respbody)
+	default:
+		respattrs["message.response.error"] = map[string]interface{}{"message":"Unexpected operation ID " + opid, "name":"Error"}
+		send(respattrs, respbody)
+	}
+}
+```
+
 ```javascript
 // This file was generated by the OpenAPI Client Operator Generator
 
